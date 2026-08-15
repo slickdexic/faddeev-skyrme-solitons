@@ -86,6 +86,15 @@ if o4:
             check(f"    {r['scheme']} h={r['h']:.4f}", float(m.group(1)),
                   r["E_over_c0"], 5e-4)
 
+# a percentage a reader recomputes from the printed columns must match the
+# printed percentage; 1.9795 shown as 1.980 crosses a rounding boundary and does not
+t = table(a, "tab:validation")
+print("  validation table is self-consistent as printed:")
+for m in re.finditer(r"\n(\d) & ([0-9.]+) & ([0-9.]+) & \$([+-][0-9.]+)\\%\$", t):
+    q, mine, ref, pct = m.group(1), float(m.group(2)), float(m.group(3)), float(m.group(4))
+    check(f"    Q={q}: percentage from the printed values",
+          pct, round(100 * (mine - ref) / ref, 1), 0.05)
+
 trunc = load("truncation_sign.json")
 if trunc:
     print("  truncation-error signs:")
