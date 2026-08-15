@@ -44,6 +44,14 @@ print()
 print("=" * 78)
 print("2. Soliton spectrum recomputed from the stored fields")
 print("=" * 78)
+
+# a results file written under an older normalisation would otherwise sit there
+# looking authoritative; E is measured, E/c0 is not
+for _p in sorted(RES.glob("*.json")):
+    _d = json.load(open(_p))
+    if isinstance(_d, dict) and "bound_constant" in _d:
+        check(f"{_p.name}: stored c0 matches the code", _d["bound_constant"], C0, 1e-6)
+
 E, Q = {}, {}
 for q in (1, 2, 3, 4):
     n = np.load(RES / f"field_Q{q}.npy")

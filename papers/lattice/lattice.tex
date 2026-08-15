@@ -31,13 +31,16 @@ systematics under explicit control and obtain $E_1/c_0=1.231\pm0.003$, an excess
 of $2.2\%$ over the accepted $1.204$ that we have been unable to remove. The
 systematics matter because they act in opposite directions---finite spacing
 lowers the energy, a finite periodic box raises it---so neither can be assessed
-alone; fitting $E=E_\infty-ah^2+cL^{-p}$ to nine runs separates them. Three
+alone; fitting $E=E_\infty-ah^2+cL^{-p}$ to nine runs separates them. Four
 checks bear on whether the fault is ours. At matched spacing $h=0.100$, the grid
 of the reference computation, we obtain $1.2257$ with no extrapolation, a
 $1.8\%$ gap of which our finite box can account for at most $0.7\%$. A
 fourth-order accurate symmetrisation, whose error has the opposite sign,
 extrapolates from above to $1.2371$ against the second-order scheme's $1.2354$
-from below, the two agreeing to $0.14\%$. And the identical procedure applied to
+from below, the two agreeing to $0.14\%$. Adopting the reference's fixed
+boundaries in place of our periodic box shifts the continuum limit by $0.18\%$,
+and at finite volume widens the gap rather than closing it. And the identical
+procedure applied to
 the Skyrme model, where the charge-one energy follows from an ordinary
 differential equation, recovers that exact value to $0.03\%$ from runs whose
 individual errors reach $2\%$. The discrepancy is confined to the absolute
@@ -448,23 +451,71 @@ found a defect in our own calculation that would produce it. The candidate
 explanations we can test have been tested: the spacing, by matching
 Ref.~\cite{sutcliffe2007} exactly; the order of the scheme, by an independent
 $O(h^4)$ discretisation approaching from the other side; the box, by an explicit
-two-parameter fit; and the whole procedure, by a control with an exact answer.
+two-parameter fit; the boundary condition, by repeating the calculation with
+Dirichlet walls; and the whole procedure, by a control with an exact answer.
 
-What we cannot test from here is the effect of fixed rather than periodic
-boundaries, which is the one methodological difference remaining.
+The remaining methodological difference is the boundary condition itself.
 Reference~\cite{sutcliffe2007} truncates the field to the vacuum at the boundary
-of a box of side $15.1$; for a massless field with power-law tails this removes
-gradient energy that a periodic box retains, and the sign is right to explain
-part of a gap. Against that, Ref.~\cite{sutcliffe2007} itself argues the opposite
-way, noting that its grid ``appear[s] to underestimate the energy by an amount of
-the order of $1\%$'' and quoting $E\simeq1.21$ from higher-resolution studies.
-Our result would put the underestimate nearer $2\%$.
+of a box of side $15.1$; we use a periodic box. For a massless field with
+power-law tails the natural expectation is that truncation removes gradient
+energy a periodic box retains, with the sign right to explain part of a gap. We
+have measured it rather than argued about it.
 
-The cleanest resolution would be an independent computation with fixed boundaries
-and an $h\to0$ extrapolation, which we encourage; the code needed to reproduce
-everything here, including both schemes, is available~\cite{repo}. Until then we
-report $E_1/c_0=1.231\pm0.003$ as our result and the difference from $1.204$ as
-open.
+Repeating the calculation under Dirichlet walls---stencils stopping at the
+boundary rather than wrapping, with a collar four cells deep held at the vacuum,
+wider than the deepest stencil---gives the paired comparison of
+Table~\ref{tab:boundary}. Within a row the seed, the grid and the relaxation
+schedule are identical, so the only difference is the boundary. The expectation
+is wrong in sign: fixed walls \emph{raise} the energy at every box size, because
+clamping the tail forbids it from relaxing, which costs more than truncation
+saves. The excess falls monotonically with box size, from $0.69\%$ at $L=10$ to
+$0.135\%$ at $L=14$, as two conventions approaching a common limit require.
+Fitting~\eqref{eq:extrap} separately to each convention gives
+\begin{equation}
+E_\infty^{\rm per}=1.2280\pm0.0008, \qquad
+E_\infty^{\rm fix}=1.2257\pm0.0012 ,
+\label{eq:boundary}
+\end{equation}
+agreeing to $1.6\sigma$. The boundary condition moves the continuum limit by
+$0.18\%$---an order of magnitude too little to account for the discrepancy.
+Under the reference's own boundary condition the excess over $1.204$ is
+$1.81\%$. The periodic member of this series also reproduces~\eqref{eq:e1}
+within its uncertainty, on an independent ladder of grids, which is a
+consistency check on both.
+
+\begin{table}[t]
+\caption{Paired boundary comparison at $\Qh=1$. Each row is two relaxations from
+the same seed on the same grid with the same schedule, differing only in the
+boundary condition. Fixed walls lie above periodic everywhere, and the gap
+closes as the box grows.}
+\label{tab:boundary}
+\begin{ruledtabular}
+\begin{tabular}{ccccc}
+$L$ & $h$ & periodic & fixed & difference (\%) \\
+\hline
+10 & 0.1471 & 1.2209 & 1.2294 & $+0.693$ \\
+10 & 0.1250 & 1.2264 & 1.2341 & $+0.629$ \\
+10 & 0.1000 & 1.2316 & 1.2382 & $+0.533$ \\
+12 & 0.1500 & 1.2148 & 1.2193 & $+0.372$ \\
+12 & 0.1250 & 1.2210 & 1.2250 & $+0.329$ \\
+12 & 0.1000 & 1.2264 & 1.2293 & $+0.242$ \\
+14 & 0.1489 & 1.2124 & 1.2149 & $+0.209$ \\
+14 & 0.1250 & 1.2182 & 1.2204 & $+0.185$ \\
+14 & 0.1094 & 1.2218 & 1.2235 & $+0.135$ \\
+\end{tabular}
+\end{ruledtabular}
+\end{table}
+
+Against all of this, Ref.~\cite{sutcliffe2007} itself argues the opposite way,
+noting that its grid ``appear[s] to underestimate the energy by an amount of the
+order of $1\%$'' and quoting $E\simeq1.21$ from higher-resolution studies. Our
+result would put the underestimate nearer $2\%$.
+
+We therefore report $E_1/c_0=1.231\pm0.003$ as our result and the difference from
+$1.204$ as open, with the boundary condition no longer among the candidate
+explanations. What would settle it is an independent implementation rather than
+an independent run of ours; the code, including both schemes and both boundary
+conventions, is available~\cite{repo}.
 
 \begin{acknowledgments}
 Numerical work used NumPy, SciPy, SymPy, Matplotlib and CuPy. The author used an
@@ -522,7 +573,11 @@ every energy, charge and radius reported here, except in the Derrick rescaling
 step, where the host and device cubic-spline interpolators differ at the
 $10^{-7}$ level; because that step is accepted only when it lowers the energy,
 this perturbs the relaxation path but not the minimum reached. All numbers quoted
-in this paper were produced on the CPU path.
+in this paper were produced on the CPU path, with the single exception of the
+paired boundary comparison of Table~\ref{tab:boundary}, which was run on the GPU.
+That comparison is between two relaxations sharing a code path, so the
+interpolator difference enters both members of a pair alike and cancels in the
+quantity of interest.
 
 \bibliographystyle{apsrev4-2}
 \bibliography{refs}

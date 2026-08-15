@@ -92,6 +92,30 @@ if sky and "extrapolation" in sky:
     check("frame extrapolation E_inf/12pi^2", 1.2311, e["E_inf"], 5e-4)
     check("exact hedgehog ODE", 1.23145, e["exact"], 1e-5)
 
+bnd = load("boundary_study.json")
+if bnd and bnd.get("complete"):
+    t = table(a, "tab:boundary")
+    print("  paired boundary comparison:")
+    per = [r for r in bnd["runs"] if r["bc"] == "periodic"]
+    fix = [r for r in bnd["runs"] if r["bc"] == "fixed"]
+    for p_, f_ in zip(per, fix):
+        m = re.search(rf"\n\s*{p_['L']:.0f} & {p_['h']:.4f} & ([0-9.]+) & ([0-9.]+)"
+                      rf" & \$\+([0-9.]+)\$", t)
+        if not m:
+            print(f"    [WARN] no row for L={p_['L']:.0f} h={p_['h']:.4f}")
+            continue
+        tag = f"L={p_['L']:.0f} h={p_['h']:.4f}"
+        check(f"    {tag} periodic", float(m.group(1)), p_["E_over_bound"], 5e-5)
+        check(f"    {tag} fixed", float(m.group(2)), f_["E_over_bound"], 5e-5)
+        d = 100 * (f_["E_over_bound"] - p_["E_over_bound"]) / p_["E_over_bound"]
+        check(f"    {tag} difference (%)", float(m.group(3)), d, 1e-3)
+    check("    E_inf periodic", 1.2280, bnd["fit_periodic"]["E_inf"], 5e-5)
+    check("    E_inf fixed", 1.2257, bnd["fit_fixed"]["E_inf"], 5e-5)
+    shift = abs(100 * bnd["boundary_shift"] / bnd["fit_periodic"]["E_inf"])
+    check("    shift quoted in text (%)", 0.18, shift, 5e-3)
+    check("    excess over 1.204 under Dirichlet (%)", 1.81,
+          100 * (bnd["fit_fixed"]["E_inf"] - 1.204) / 1.204, 5e-3)
+
 spec = load("skyrme_spectrum.json")
 if spec:
     t = table(a, "tab:frame")
