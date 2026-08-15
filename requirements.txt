@@ -1,0 +1,8 @@
+numpy>=2.2
+scipy>=1.16
+sympy>=1.14
+matplotlib>=3.10
+
+# Optional: enables the GPU backend (fs_core.use_gpu(), or --gpu on the drivers).
+# Install the build matching your CUDA runtime, e.g.
+#   pip install cupy-cuda12x

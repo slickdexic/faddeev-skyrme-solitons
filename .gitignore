@@ -1,0 +1,30 @@
+# Field snapshots and evolution records (91 MB); regenerate with the drivers below.
+results/*.npy
+results/*.npz
+
+# Working logs
+*.log
+
+# LaTeX build products
+papers/*/*.aux
+papers/*/*.bbl
+papers/*/*.blg
+papers/*/*.out
+papers/*/*.log
+papers/*/*Notes.bib
+
+# Superseded single-paper draft, kept locally until the split is signed off
+paper/
+
+# Historical Markdown drafts, reviews and scratch data. These predate the
+# manuscripts and contain claims that were investigated and withdrawn; they are
+# working history, not part of the supplement.
+Resonant*.md
+V*-Review.*
+V*_Review.md
+Review-*.md
+arxiv_*
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
