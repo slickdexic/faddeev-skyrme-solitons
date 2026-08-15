@@ -31,3 +31,6 @@ arxiv_*
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+
+# study logs
+results/*.log

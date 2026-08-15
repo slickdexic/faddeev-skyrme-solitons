@@ -66,8 +66,18 @@ def run_one(bc, L, N, steps, width=4):
                leak=fs.boundary_leakage(n, h), secs=time.time() - t0)
     print(f"  {bc:8s} L={L:5.1f} N={N:4d} h={h:.4f}  "
           f"E/c0={rec['E_over_bound']:.4f}  virial={rec['virial']:.4f}  "
-          f"Q={rec['Q']:+.4f}  leak={rec['leak']:.2e}  [{rec['secs']:.0f}s]")
+          f"Q={rec['Q']:+.4f}  leak={rec['leak']:.2e}  [{rec['secs']:.0f}s]",
+          flush=True)
+    del n, seed, grid
+    free_gpu()
     return rec
+
+
+def free_gpu():
+    """Return pooled device memory; fragmentation across differing N is otherwise fatal."""
+    if fs.on_gpu():
+        import cupy
+        cupy.get_default_memory_pool().free_all_blocks()
 
 
 def joint_fit(rows):
@@ -99,15 +109,18 @@ def main():
         print("backend: CuPy")
 
     grids = QUICK if args.quick else GRIDS
-    out = {"bound_constant": BOUND, "steps": args.steps, "runs": []}
+    out = {"bound_constant": BOUND, "steps": args.steps, "complete": False, "runs": []}
+    dest = RES / ("boundary_study_quick.json" if args.quick else "boundary_study.json")
 
     t0 = time.time()
     for L, N in grids:
         for bc in ("periodic", "fixed"):
             out["runs"].append(run_one(bc, L, N, args.steps))
+            dest.write_text(json.dumps(out, indent=2))    # checkpoint: a crash keeps the rest
         a, b = out["runs"][-2], out["runs"][-1]
         d = b["E_over_bound"] - a["E_over_bound"]
-        print(f"    -> fixed - periodic = {d:+.5f}  ({100*d/a['E_over_bound']:+.3f}%)\n")
+        print(f"    -> fixed - periodic = {d:+.5f}  ({100*d/a['E_over_bound']:+.3f}%)\n",
+              flush=True)
 
     if not args.quick:
         for bc in ("periodic", "fixed"):
@@ -123,8 +136,9 @@ def main():
         print(f"the discrepancy against the published 1.204 is "
               f"{100*(out['fit_fixed']['E_inf']-1.204)/1.204:+.2f}% under Dirichlet walls")
 
-    (RES / "boundary_study.json").write_text(json.dumps(out, indent=2))
-    print(f"\nwrote results/boundary_study.json  [{time.time()-t0:.0f}s]")
+    out["complete"] = True
+    dest.write_text(json.dumps(out, indent=2))
+    print(f"\nwrote {dest.relative_to(ROOT)}  [{time.time()-t0:.0f}s]", flush=True)
 
 
 if __name__ == "__main__":
