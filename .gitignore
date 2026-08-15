@@ -13,6 +13,9 @@ papers/*/*.out
 papers/*/*.log
 papers/*/*Notes.bib
 
+# Generated arXiv upload bundles
+arxiv/
+
 # Superseded single-paper draft, kept locally until the split is signed off
 paper/
 

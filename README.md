@@ -59,6 +59,11 @@ python scripts/verify_manuscript.py   # checks the LaTeX against those numbers
 The static and dynamic runs write the field snapshots that `verify_claims.py`
 reads, so run them before it. Each paper directory has its own `build.sh`.
 
+`python scripts/make_arxiv_bundle.py lattice` assembles a self-contained arXiv
+upload: it flattens the shared figure directory, rewrites the image paths, and
+includes the `.bbl`, since arXiv does not run BibTeX. Run the paper's `build.sh`
+first so the `.bbl` exists.
+
 ## GPU
 
 The lattice kernels are written against a swappable array backend and run
