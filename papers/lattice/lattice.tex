@@ -149,6 +149,15 @@ which is supposed to be inviolable. The topological protection is
 lost not because the physics permits it but because the discretisation has a
 zero-cost path out of the sector.
 
+The mechanism is the one behind fermion doubling in lattice gauge
+theory~\cite{nielsen1981}, where an antisymmetric difference operator likewise
+acquires spurious zeros of its symbol at the corners of the Brillouin zone, and
+behind the checkerboard decoupling familiar from finite-difference fluid
+dynamics. What is specific here is the consequence: the null direction is not
+merely a spurious oscillation to be filtered but a zero-cost route between
+topological sectors, so the invariant that is supposed to protect the soliton
+stops being conserved.
+
 The cure is a scheme whose symbol vanishes only at $k=0$. We use one-sided
 differences and symmetrise the \emph{energy} rather than the derivative,
 \begin{equation}
@@ -170,8 +179,33 @@ and averaging removes the $O(h)$ term, leaving
 \label{eq:h2}
 \end{equation}
 after integrating $\int\partial\nv\cdot\partial^3\nv=-\int|\partial^2\nv|^2$ by
-parts. The discrete energy is therefore below the continuum one, by $O(h^2)$ --
-both the sign and the order seen in the fits of Sec.~\ref{sec:charge1}.
+parts.
+
+Equation~\eqref{eq:h2} covers the quadratic term only. For a general density
+$F(\partial\nv)$ the same expansion gives
+\begin{equation}
+\tfrac12\!\int\!\big[F(D^+\nv)+F(D^-\nv)\big]
+ = \int\! F - \frac{h^2}{24}\int\! F''[\partial^2\nv,\partial^2\nv] + O(h^4),
+\label{eq:h2gen}
+\end{equation}
+which reduces to~\eqref{eq:h2} at $F=|\partial\nv|^2$, where $F''=2$. The sign is
+negative only where $F$ is convex in $\partial\nv$, and for the quartic density
+$F=\tfrac12\sum_{ij}q_{ij}^2$ with
+$q_{ij}=\nv\cdot(\partial_i\nv\times\partial_j\nv)$ the second variation
+\begin{equation}
+F''[v,v]=\sum_{ij}\big[(q'_{ij}\!\cdot\!v)^2
+ +2\,q_{ij}\,\nv\cdot(v_i\times v_j)\big]
+\end{equation}
+is not sign definite. We therefore measure it rather than assert it. Sampling one
+analytic configuration at seven spacings---no relaxation intervenes, so every
+grid approaches the same continuum value---and fitting $v_0+ah^2$ to the two
+terms separately gives $a=-68.8$ for the quadratic term and $a=-214.4$ for the
+quartic one. Both lie below the continuum, and the quartic term supplies three
+quarters of the total error. Repeating with the fourth-order scheme against $h^4$
+returns $+2.3\times10^3$ and $+8.3\times10^3$, above the continuum in both terms.
+The $-a\,h^2$ form fitted in Sec.~\ref{sec:charge1} is therefore justified for the
+full functional rather than for its quadratic part alone, and the two schemes
+bracket the limit term by term.
 
 \emph{A fourth-order variant.} Nothing forces the one-sided differences
 in~\eqref{eq:sym} to be first-order accurate. Built from third-order one-sided
@@ -513,9 +547,16 @@ result would put the underestimate nearer $2\%$.
 
 We therefore report $E_1/c_0=1.231\pm0.003$ as our result and the difference from
 $1.204$ as open, with the boundary condition no longer among the candidate
-explanations. What would settle it is an independent implementation rather than
-an independent run of ours; the code, including both schemes and both boundary
-conventions, is available~\cite{repo}.
+explanations. Two differences we cannot probe from outside remain, and we name
+them so that they can be checked: the quadrature weights used to sum the energy
+density, and the precise discrete form given to the cross product in the quartic
+term. Our sum is the rectangle rule, which on a periodic lattice coincides with
+the trapezoidal rule and converges faster than any power of $h$ for smooth
+periodic integrands, so we do not expect it to carry a percent-level effect; but
+it is a difference of convention that only the reference implementation can
+settle. What would resolve the discrepancy is an independent implementation
+rather than an independent run of ours; the code, including both schemes and both
+boundary conventions, is available~\cite{repo}.
 
 \begin{acknowledgments}
 Numerical work used NumPy, SciPy, SymPy, Matplotlib and CuPy. The author used an

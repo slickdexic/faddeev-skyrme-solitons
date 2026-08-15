@@ -86,6 +86,25 @@ if o4:
             check(f"    {r['scheme']} h={r['h']:.4f}", float(m.group(1)),
                   r["E_over_c0"], 5e-4)
 
+trunc = load("truncation_sign.json")
+if trunc:
+    print("  truncation-error signs:")
+    o2, o4 = trunc["schemes"]["o2"], trunc["schemes"]["o4"]
+    check("    o2 quadratic coefficient", -68.8, o2["E2"]["a"], 0.05)
+    check("    o2 quartic coefficient", -214.4, o2["E4"]["a"], 0.05)
+    check("    o4 quadratic coefficient (1e3)", 2.3, o4["E2"]["a"] / 1e3, 0.05)
+    check("    o4 quartic coefficient (1e3)", 8.3, o4["E4"]["a"] / 1e3, 0.05)
+    frac = o2["E4"]["a"] / o2["E"]["a"]
+    check("    quartic share of the h^2 error", 0.75, frac, 0.02)
+    for s, sc in (("o2", o2), ("o4", o4)):
+        want = "below" if s == "o2" else "above"
+        for term in ("E2", "E4"):
+            got = sc[term]["approaches_from"]
+            ok &= got == want
+            print(f"  [{'OK ' if got == want else 'FAIL'}] "
+                  f"    {s} {term} approaches from{'':<20} "
+                  f"paper {want:>10}  code {got:>10}")
+
 sky = load("skyrme.json")
 if sky and "extrapolation" in sky:
     e = sky["extrapolation"]
