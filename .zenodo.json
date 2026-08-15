@@ -1,0 +1,22 @@
+{
+  "title": "Faddeev-Skyrme solitons: lattice library and manuscript source",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "mit",
+  "creators": [
+    {
+      "name": "Vodrazka, Paul",
+      "affiliation": "Independent researcher"
+    }
+  ],
+  "keywords": [
+    "Faddeev-Skyrme model",
+    "Hopf soliton",
+    "hopfion",
+    "Skyrme model",
+    "topological soliton",
+    "lattice field theory",
+    "continuum extrapolation"
+  ],
+  "description": "<p>Computational supplement to two companion papers on Faddeev-Skyrme and Skyrme soliton energies.</p><ul><li>Lattice library with a symmetrised energy free of the Nyquist null mode, whose analytic variation is the exact gradient of the discrete energy</li><li>Two discretisation schemes, O(h^2) and O(h^4), with errors of opposite sign</li><li>Periodic and Dirichlet boundary conditions, for a paired comparison in which only the boundary differs</li><li>Joint lattice-spacing and finite-volume extrapolation</li><li>Two verification suites: one re-derives the physics from stored fields, the other checks the manuscripts against what the code produced</li><li>CPU and CUDA from a single code path, double precision throughout</li></ul><p><strong>Licensing.</strong> The MIT licence applies to the software: <code>rt/</code>, <code>scripts/</code>, the build scripts and configuration. It does not apply to the manuscripts in <code>papers/</code> or the figures in <code>figures/</code>, which are Copyright (c) 2026 Paul Vodrazka, all rights reserved, and are included so that the computational claims can be read alongside the code producing them. See LICENSE.</p>"
+}
