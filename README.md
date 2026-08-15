@@ -1,5 +1,7 @@
 # Topological solitons of a hyperelastic vacuum
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21940804.svg)](https://doi.org/10.5281/zenodo.21940804)
+
 Computational supplement to two companion papers, which share one codebase:
 
 - **`papers/lattice/`** — *Faddeev–Skyrme soliton energies from controlled lattice
