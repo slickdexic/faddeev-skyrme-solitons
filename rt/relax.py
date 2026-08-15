@@ -1,9 +1,12 @@
 """Energy minimisation and Lorentzian evolution for the Faddeev-Skyrme model.
 
-The lattice is periodic and all configurations are vacuum in a collar around the
-boundary, so no explicit boundary condition is imposed.  For time evolution an
-optional absorbing collar removes outgoing radiation, which lets the radiated
-energy be measured cleanly.
+The lattice is periodic by default and all configurations are vacuum in a collar
+around the boundary, so no explicit boundary condition is imposed.  Setting
+`fs_core.set_boundary("fixed")` switches to Dirichlet walls, which `minimise`
+honours by freezing the collar; this reproduces the convention of the reference
+computations and isolates the boundary's contribution to the energy.  For time
+evolution an optional absorbing collar removes outgoing radiation, which lets
+the radiated energy be measured cleanly.
 """
 
 from __future__ import annotations
@@ -43,9 +46,26 @@ def rescale(n, mu, order=3):
     return fs.normalise(out)
 
 
+def frozen_mask(shape, width: int = 4):
+    """Collar of cells clamped to their initial value under Dirichlet walls.
+
+    The width must exceed the stencil reach (3 for the fourth-order scheme) so
+    that no moving site ever reads a replicated edge value.
+    """
+    xp = fs.xp
+    m = xp.zeros(shape[1:], dtype=bool)
+    for axis in range(3):
+        sl = [slice(None)] * 3
+        sl[axis] = slice(0, width)
+        m[tuple(sl)] = True
+        sl[axis] = slice(-width, None)
+        m[tuple(sl)] = True
+    return m
+
+
 def minimise(n, h, c2=1.0, c4=1.0, steps=6000, max_rot=0.01, momentum=0.9,
              report=500, tol=1e-12, verbose=True, track_charge=True,
-             rescale_every=150):
+             rescale_every=150, bc_width=4):
     """Adaptive damped flow towards a stationary point of E[n].
 
     The step length is capped so that no site rotates by more than `max_rot` per
@@ -57,6 +77,17 @@ def minimise(n, h, c2=1.0, c4=1.0, steps=6000, max_rot=0.01, momentum=0.9,
     """
     n = fs.normalise(n.copy())
     vel = fs.xp.zeros_like(n)
+
+    clamp = None
+    if fs.boundary() == "fixed":
+        clamp = (frozen_mask(n.shape, bc_width), n.copy())
+
+    def hold(f):
+        if clamp is not None:
+            mask, ref = clamp
+            f[:, mask] = ref[:, mask]
+        return f
+
     E2, E4 = fs.energy(n, h, c2, c4)
     E_prev = E2 + E4
     best = (E_prev, n.copy())
@@ -65,17 +96,19 @@ def minimise(n, h, c2=1.0, c4=1.0, steps=6000, max_rot=0.01, momentum=0.9,
 
     for step in range(1, steps + 1):
         g = fs.variation(n, h, c2, c4)
+        if clamp is not None:
+            g[:, clamp[0]] = 0.0
         gmax = float(fs.xp.abs(g).max())
         if gmax < 1e-14:
             break
         tau = max_rot / gmax
 
         vel = momentum * vel - tau * g
-        trial = fs.normalise(n + vel)
+        trial = hold(fs.normalise(n + vel))
         e2, e4 = fs.energy(trial, h, c2, c4)
         if e2 + e4 > E_prev:                       # arrest, then pure descent
             vel[...] = 0.0
-            trial = fs.normalise(n - tau * g)
+            trial = hold(fs.normalise(n - tau * g))
             e2, e4 = fs.energy(trial, h, c2, c4)
             if e2 + e4 > E_prev:                   # still uphill: shorten the step
                 max_rot *= 0.5
@@ -94,7 +127,7 @@ def minimise(n, h, c2=1.0, c4=1.0, steps=6000, max_rot=0.01, momentum=0.9,
             mu = float(np.sqrt(E2 / E4)) ** -1.0     # mu = sqrt(E4/E2)
             mu = min(max(mu, 0.8), 1.25)
             if abs(mu - 1.0) > 1e-3:
-                cand = rescale(n, mu)
+                cand = hold(rescale(n, mu))
                 f2, f4 = fs.energy(cand, h, c2, c4)
                 # unbounded dilation samples only the core and clamps at the edges,
                 # giving a uniform field with E = 0; the energy test alone accepts it

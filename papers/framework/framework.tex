@@ -849,8 +849,8 @@ The obvious escape is that the extra states are not new topological sectors but
 excitations of the same one: a soliton has a spectrum of internal oscillations,
 and those carry the same charge and the same spin at higher mass, which is
 exactly what a generation looks like. That escape is closed, and it is worth
-closing quantitatively rather than by assertion, because it is the only route the
-homotopy argument above does not already exclude.
+closing quantitatively rather than by assertion, because the homotopy argument
+above says nothing about it.
 
 The director is massless---its vacuum manifold is $S^2$, so fluctuations about
 the vacuum are Goldstone modes---so the radiation continuum reaches down to zero
@@ -867,11 +867,82 @@ hadronic width, comparable to the $\Delta$ at $\Gamma/m\simeq0.12$. A muon
 requires $\Gamma/m\simeq3\times10^{-18}$. Vibrational quantisation therefore
 misses by some sixteen orders of magnitude, and since numerical dissipation can
 only inflate the measured width, Eq.~\eqref{eq:breather} is an upper bound on how
-narrow such a state could be. Therefore
-\emph{generations cannot arise within the director sector alone}; the target
-manifold must be enlarged so that the $|\Qh|=1$ sector carries an additional
-discrete label. Identifying that enlargement is the principal open problem, and
-the no-go above is a concrete criterion any proposal must satisfy.
+narrow such a state could be.
+
+A second escape survives that argument. Besides vibrations a soliton has
+\emph{zero} modes, and rigid-body quantisation of those also produces a tower at
+fixed charge and fixed spin; zero modes do not decay, so the width bound does not
+touch them. This route closes quantitatively too. For a collective coordinate
+$\nv\to e^{\theta K}\nv$ the kinetic term $c_2|\partial_t\nv|^2$ gives
+$T=\tfrac12\Lambda\dot\theta^2$ with $\Lambda=2c_2\!\int\!|K\nv|^2$ and a tower
+$E_k=k^2/2\Lambda$. Measured on the relaxed $\Qh=1$ field, the internal $U(1)$
+that rotates the target about the vacuum axis and the spatial rotations give
+\begin{equation}
+\Lambda_{U(1)}=217.7,\quad \Lambda_{\perp}=281.5,\quad \Lambda_{\parallel}=232.8,
+\qquad \frac{1}{2\Lambda_{U(1)}M_1}=4.2\times10^{-6},
+\label{eq:collective}
+\end{equation}
+the two transverse moments agreeing to five digits as the axial symmetry of the
+$\Qh=1$ solution requires. The level spacing is four parts in $10^{6}$ of the
+soliton mass: the tower is near-degenerate, not a generation ladder. Reaching
+$m_\mu/m_e$ would need $k\simeq7.0\times10^{3}$, at which the collective
+frequency $k/\Lambda=32$ exceeds the soliton's own breathing frequency $0.486$
+by a factor of $66$---the adiabatic separation that justified treating the body
+as rigid has failed by two orders of magnitude---and the state would in any case
+lie some $200$ times its own mass above the one-soliton threshold. Quartic
+contributions to $\Lambda$ are positive definite, so including them only lowers
+the spacing and raises the required $k$: the exclusion is conservative.
+
+What remains is to enlarge the target manifold so that the $|\Qh|=1$ sector
+carries an additional discrete label. We do not claim that no such enlargement
+exists---that is the principal open problem---but its price can be stated
+exactly, and within this framework it is high. Let $X$ be the enlarged target,
+required to keep $\pi_3(X)=\mathbb{Z}$ so that the charge-one state remains
+protected. Three costs follow.
+
+\emph{(i) Theorem~1 does not survive.} By the corollary of
+Sec.~\ref{sec:corollary}, $I_k\equiv0$ only for $k>\min(\dim X,3)$. Any $X$ with
+$\dim X\ge3$ therefore admits $I_3\not\equiv0$, a sextic invariant becomes
+writable, and the Mooney--Rivlin form stops being an exact truncation and becomes
+a choice carrying a third independent elastic constant. This is measured, not
+hypothetical: the frame sector, with $\dim S^3=3$, already gives
+$|\det D|/I_1^3=3.7\times10^{-2}$ against $10^{-7}$ for the director. The one
+property that made the quartic term non-optional is lost on any enlargement.
+
+\emph{(ii) Degeneracy, or the wrong quantum numbers.} If the candidate states are
+related by a symmetry of the energy they are exactly degenerate and must be split
+by an explicit breaking term. The natural candidate has this form: in the flag
+manifold $SU(3)/T^2$---which does keep $\pi_3=\mathbb{Z}$, since
+$\pi_3(T^2)=0\to\pi_3(SU(3))=\mathbb{Z}\to\pi_3(SU(3)/T^2)\to\pi_2(T^2)=0$---the
+three $SU(2)$ subgroups are conjugate, their Weyl images forming a single class,
+so the three embedded solitons have rigorously equal energy. If instead the
+states are not related by a symmetry, they will generically differ in spin or in
+charge, whereas generations are copies differing only in mass.
+
+\emph{(iii) The parameter count inverts.} Splitting a degenerate triplet requires
+at least two independent couplings, which together with the revived sextic
+constant makes three new parameters accommodating the two ratios $m_\mu/m_e$ and
+$m_\tau/m_e$. A construction with more free parameters than observables is a fit,
+not a prediction, and it would forfeit exactly the restraint that makes
+Theorem~2 a matching identity rather than a claim to have explained the
+hierarchy.
+
+One route can be excluded outright rather than priced. A label carried by
+$\pi_2(X)$---for instance the second factor of
+$\pi_2(SU(3)/T^2)=\mathbb{Z}\oplus\mathbb{Z}$---does not describe a lepton: a
+configuration with nonzero $\pi_2$ charge is a hedgehog whose energy grows
+linearly with the box and whose field falls off as $r^{-2}$. This is not a new
+hazard introduced by enlargement, since $\pi_2(S^2)=\mathbb{Z}$ and the director
+sector already contains such defects; in both cases they are excluded because
+they are singular, and in both cases they are point defects rather than internal
+labels of a localised soliton.
+
+The standing of this subsection is therefore stronger than an admission of
+ignorance and weaker than a proof of impossibility. Generations do not arise
+from new topological sectors, from vibrational excitation, or from collective
+quantisation, and every route out of the director sector that we can identify
+costs more parameters than it explains. The $S^2$ hyperelastic vacuum appears to
+have no room for them.
 
 \emph{Mass ratios and Yukawa couplings.} Not addressed.
 
@@ -1260,9 +1331,11 @@ percentage points, so the agreement in Sec.~\ref{sec:spectrum} is not an artefac
 of one tuned discretisation.
 
 What the framework does not do is equally important: it has no generation
-structure, no mass ratios, and no flavour physics, and Sec.~\ref{sec:nogo} gives
-a no-go result showing that generations cannot be accommodated within the
-director sector at all.
+structure, no mass ratios, and no flavour physics, and Sec.~\ref{sec:nogo}
+excludes the routes by which generations might have been recovered---new
+topological sectors, vibrational excitation and collective quantisation---and
+prices the remaining one, enlargement of the target, at more free parameters
+than it would explain.
 
 What remains is falsifiable. The rigidity scale is already bounded from below,
 $R_\infty\gtrsim1.0\,$fm at $95\%$ CL, by forward elastic scattering; the framework
@@ -1329,6 +1402,8 @@ The drivers are:
       symmetrised scheme, as an independent test of the extrapolation;
 \item \texttt{run\_breathing\_mode.py} --- excites and measures the width of the
       soliton's internal oscillation;
+\item \texttt{run\_collective\_modes.py} --- moments of inertia of the zero
+      modes and the level spacing of the collective tower;
 \item \texttt{run\_dynamics.py} --- annihilation and fusion collisions;
 \item \texttt{run\_skyrme.py} --- frame-sector $B=1,2$ solitons, lattice and
       box-size systematics, column-density fit;

@@ -70,38 +70,80 @@ VACUUM = np.array([0.0, 0.0, -1.0])
 # fourth-order antisymmetric central-difference weights for f(i-2..i+2)
 _W = (1.0 / 12.0, -8.0 / 12.0, 8.0 / 12.0, -1.0 / 12.0)
 
+_BC = "periodic"
+
+
+def set_boundary(kind: str) -> str:
+    """Select 'periodic' or 'fixed' (Dirichlet) lattice boundaries.
+
+    Under 'fixed' the stencils stop at the wall instead of wrapping, so the
+    field is continued by the boundary value rather than by its periodic image.
+    Relaxation must additionally freeze the collar (see relax.minimise); with a
+    vacuum collar the two conventions differ only through the soliton tail.
+    """
+    global _BC
+    if kind not in ("periodic", "fixed"):
+        raise ValueError(kind)
+    _BC = kind
+    return _BC
+
+
+def boundary() -> str:
+    return _BC
+
+
+def _shift(f: np.ndarray, s: int, axis: int) -> np.ndarray:
+    """xp.roll, except that fixed boundaries replicate the edge instead of wrapping.
+
+    The collar is held at the vacuum, so edge replication *is* vacuum padding,
+    without the operators needing to know the target-space vacuum (the frame
+    sector carries four components, the director sector three).
+    """
+    out = xp.roll(f, s, axis=axis)
+    if _BC == "periodic":
+        return out
+    n = out.shape[axis]
+    dead = [slice(None)] * out.ndim
+    edge = [slice(None)] * out.ndim
+    if s > 0:
+        dead[axis], edge[axis] = slice(0, s), slice(s, s + 1)
+    else:
+        dead[axis], edge[axis] = slice(n + s, None), slice(n + s - 1, n + s)
+    out[tuple(dead)] = out[tuple(edge)]
+    return out
+
 
 # --------------------------------------------------------------------------
 # differential operators
 # --------------------------------------------------------------------------
 def d1(f: np.ndarray, h: float, axis: int) -> np.ndarray:
-    """Fourth-order periodic central derivative along a spatial `axis` (1..3)."""
+    """Fourth-order central derivative along a spatial `axis` (1..3)."""
     w2, w1, wm1, wm2 = _W
-    return (w2 * xp.roll(f, 2, axis=axis)
-            + w1 * xp.roll(f, 1, axis=axis)
-            + wm1 * xp.roll(f, -1, axis=axis)
-            + wm2 * xp.roll(f, -2, axis=axis)) / h
+    return (w2 * _shift(f, 2, axis)
+            + w1 * _shift(f, 1, axis)
+            + wm1 * _shift(f, -1, axis)
+            + wm2 * _shift(f, -2, axis)) / h
 
 
 def dplus(f: np.ndarray, h: float, axis: int) -> np.ndarray:
-    return (xp.roll(f, -1, axis=axis) - f) / h
+    return (_shift(f, -1, axis) - f) / h
 
 
 def dminus(f: np.ndarray, h: float, axis: int) -> np.ndarray:
-    return (f - xp.roll(f, 1, axis=axis)) / h
+    return (f - _shift(f, 1, axis)) / h
 
 
 def dplus3(f: np.ndarray, h: float, axis: int) -> np.ndarray:
     """Third-order one-sided forward difference, (D+)^T = -D-."""
-    return (-11.0 * f + 18.0 * xp.roll(f, -1, axis=axis)
-            - 9.0 * xp.roll(f, -2, axis=axis)
-            + 2.0 * xp.roll(f, -3, axis=axis)) / (6.0 * h)
+    return (-11.0 * f + 18.0 * _shift(f, -1, axis)
+            - 9.0 * _shift(f, -2, axis)
+            + 2.0 * _shift(f, -3, axis)) / (6.0 * h)
 
 
 def dminus3(f: np.ndarray, h: float, axis: int) -> np.ndarray:
-    return (11.0 * f - 18.0 * xp.roll(f, 1, axis=axis)
-            + 9.0 * xp.roll(f, 2, axis=axis)
-            - 2.0 * xp.roll(f, 3, axis=axis)) / (6.0 * h)
+    return (11.0 * f - 18.0 * _shift(f, 1, axis)
+            + 9.0 * _shift(f, 2, axis)
+            - 2.0 * _shift(f, 3, axis)) / (6.0 * h)
 
 
 _SCHEME = "o2"
