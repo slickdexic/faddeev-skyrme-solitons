@@ -1011,7 +1011,22 @@ fit parameter.
 
 The $\tanh$ is a minimal phenomenological implementation. The framework's content
 is that a bound exists and is set by the medium's rigidity, not the functional
-form by which it is approached. What the framework does require is that
+form by which it is approached. That distinction is testable rather than
+rhetorical, and we have tested it. Repeating the fit and the profile likelihood
+with $R_\infty(1-e^{-R_{\rm bare}/R_\infty})$ and with the algebraic
+$R_{\rm bare}(1+R_{\rm bare}^2/R_\infty^2)^{-1/2}$---three forms sharing the same
+two limits but approaching the bound at very different rates, exponentially in
+two cases and as a power in the third---moves the best fit from $\chi^2=39.74$ to
+$39.81$ and $39.79$, against $40.78$ unsaturated, and moves the predicted
+$\rho(13\,\mathrm{TeV})$ from $0.1144$ to $0.1146$. The $95\%$ lower limit is
+$1.18\,$fm in all three cases, unchanged to the $0.1\,$fm resolution of the scan,
+even though the best-fit $R_\infty$ itself ranges over $1.30$ to $1.45\,$fm as
+the saturation rate changes. The limit is therefore a property of the data and
+not of the parameterisation. What does move it is the assumed opacity profile
+(Sec.~\ref{sec:profile}), which is why we quote the conservative
+$\gtrsim1.0\,$fm rather than $1.18\,$fm.
+
+What the framework does require is that
 $R_\infty$ be of order the soliton's own extent, since the bound arises from the
 soliton's finite stored strain and not from a new scale. The fit returns
 $R_\infty=6.59\,\mathrm{GeV}^{-1}=1.30\,$fm against a proton interaction radius
@@ -1427,6 +1442,9 @@ The drivers are:
       box-size systematics, column-density fit;
 \item \texttt{run\_eikonal.py} --- fits, profile likelihood, predictions, dip;
 \item \texttt{run\_eikonal\_systematics.py} --- dataset-subset systematics;
+\item \texttt{check\_saturation\_forms.py} --- refits and re-profiles the
+      rigidity limit under three saturation functions, testing whether the limit
+      is a property of the data or of the parameterisation;
 \item \texttt{extract\_profile.py} --- soliton transverse profile;
 \item \texttt{make\_figures.py} --- figures and the literature comparison;
 \item \texttt{verify\_claims.py} --- independent re-derivation of every number
