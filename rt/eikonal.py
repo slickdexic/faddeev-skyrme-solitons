@@ -126,6 +126,7 @@ class Eikonal:
     s0: float = 1.0               # GeV^2
     saturate: bool = True
     profile_shape: str = "gaussian"   # "gaussian", "dipole" or "skyrmion"
+    saturation: str = "tanh"          # "tanh", "exp" or "algebraic"
 
     # ------------------------------------------------------------------ core
     def _L(self, s):
@@ -136,7 +137,16 @@ class Eikonal:
         R_bare = np.sqrt(self.R0**2 + 4.0 * self.alphap * L + 0j)
         if not self.saturate:
             return R_bare
-        return self.R_inf * np.tanh(R_bare / self.R_inf)
+        # every form obeys f -> R_bare as R_bare -> 0 and f -> R_inf as R_bare -> inf;
+        # they differ only in how fast the bound is approached
+        x = R_bare / self.R_inf
+        if self.saturation == "tanh":
+            return self.R_inf * np.tanh(x)
+        if self.saturation == "exp":
+            return self.R_inf * (1.0 - np.exp(-x))
+        if self.saturation == "algebraic":
+            return R_bare / np.sqrt(1.0 + x * x)
+        raise ValueError(self.saturation)
 
     def _omega0(self, s):
         return self.C * np.exp(self.Delta * self._L(s))
@@ -267,7 +277,7 @@ def n_data(use_slope=True):
 
 
 def fit(saturate=True, x0=None, use_slope=True, extra_sigma_sys=0.0, verbose=True,
-        profile_shape="gaussian"):
+        profile_shape="gaussian", saturation="tanh"):
     """Fit (C, Delta, R0, alpha', [R_inf]) by chi-square minimisation."""
     from scipy.optimize import minimize
 
@@ -276,6 +286,7 @@ def fit(saturate=True, x0=None, use_slope=True, extra_sigma_sys=0.0, verbose=Tru
                   saturate=saturate, profile_shape=profile_shape)
         if saturate:
             kw["R_inf"] = abs(p[4])
+            kw["saturation"] = saturation
         return Eikonal(**kw)
 
     p0 = list(x0) if x0 is not None else [1.0, 0.10, 3.5, 0.25] + ([6.0] if saturate else [])
