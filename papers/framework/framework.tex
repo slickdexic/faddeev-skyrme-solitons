@@ -24,7 +24,7 @@
 
 \begin{document}
 
-\title{Topological Solitons of a Hyperelastic Vacuum}
+\title{Topological Solitons of a Hyperelastic Medium}
 
 \author{Paul Vodrazka}
 \affiliation{Independent researcher}
@@ -32,41 +32,40 @@
 \date{\today}
 
 \begin{abstract}
-Holographic models make a compelling case that spacetime behaves as a quantum
-error-correcting code, but they specify the code without specifying the medium
-that realises it. We supply the continuum-mechanical description and test it.
-Treating the spatial metric as an isotropic hyperelastic continuum carrying a
-director microstructure, we prove that its strain energy is \emph{exactly} the
-Faddeev--Skyrme energy: for an $S^2$-valued director the third Cauchy--Green
-invariant vanishes identically, so the Mooney--Rivlin truncation is exact and the
-quartic term is the vacuum's second elastic constant rather than an ansatz
-against Derrick's theorem. A second theorem fixes the ratio of director stiffness
-to the metric tension $\Gamma=c^4/16\pi G$ by the soliton's gravitational
-compactness, $\chi=8\pi(\Rhat/\Ehat)\,r_s/R$, recasting the Planck-to-particle
-hierarchy as the statement that elementary particles are not black holes. Lattice
-solutions for $\Qh=1\ldots4$, obtained on a discretisation free of the odd--even
-null mode that otherwise destroys topological protection, reproduce the published
-Faddeev--Skyrme spectrum to $0.6$--$1.6\%$ including all four ground-state types,
-and obey $E\propto|\Qh|^{0.765}$ against the Vakulenko--Kapitanskii exponent
-$3/4$. Extrapolated to zero spacing and infinite volume, however, the
-charge-one energy is $1.231\pm0.003$ in units of Ward's conjectured bound,
-$2.2\%$ above the published lattice value, and we report this as a discrepancy
-rather than an agreement. The same identity extends to the frame sector $S^3$,
-where the dimension count that forces the truncation fails and a sextic term
-becomes admissible; there the exact answer is known in closed form, and the same
-code and the same extrapolation recover it to $0.03\%$, which is what licenses
-the extrapolation in the director sector. Evolving the field
-equations, a $\Qh=0$ collision radiates $99.8\%$ of its
-rest energy and leaves nothing, while its mirror image at $\Qh=+2$ relaxes onto
-the independently minimised $\Qh=2$ soliton to $0.5\%$. Homotopy analysis yields
-charge quantisation from the Hopf fibre, confinement as a $\mathbb{Z}_3$ triality
-selection rule, and a no-go result excluding generations from the director sector
-alone. Forward elastic $pp$ data bound the rigidity scale,
-$R_\infty\gtrsim1.0\,$fm at $95\%$ CL, robust against the assumed
-impact-parameter profile; we present that sector as a constraint rather than a
-success, since current data do not discriminate saturating from conventional
-growth and the fit returns $\rho(13\,\mathrm{TeV})=0.114$ against the measured
-$0.098\pm0.011$.
+For an isotropic hyperelastic medium carrying a director microstructure we prove
+that the strain energy is \emph{exactly} the Faddeev--Skyrme energy: an
+$S^2$-valued director makes the third Cauchy--Green invariant vanish identically,
+so the Mooney--Rivlin truncation is exact rather than approximate and the quartic
+term is the medium's second elastic constant rather than an ansatz introduced
+against Derrick's theorem. The dimension count that forces this fails on any
+target of dimension three or more; on the frame sector $S^3$ the sextic invariant
+is admissible and we measure it at $3.7\times10^{-2}$ against $10^{-7}$ for the
+director. Lattice solutions for $\Qh=1\ldots4$, obtained on a discretisation free
+of the odd--even null mode that otherwise destroys topological protection,
+reproduce the published spectrum to $0.6$--$1.6\%$ including all four
+ground-state types and obey $E\propto|\Qh|^{0.765}$ against the
+Vakulenko--Kapitanskii exponent $3/4$; the charge-one energy is reported
+separately as a $2.2\%$ discrepancy with the literature. Evolving the field
+equations, a $\Qh=0$ collision radiates $99.8\%$ of its rest energy and leaves
+nothing, while its mirror image at $\Qh=+2$ relaxes onto the independently
+minimised $\Qh=2$ soliton to $0.5\%$. We then ask what the sector cannot contain,
+and answer quantitatively: generations do not arise from it. The breathing mode
+is a resonance of hadronic width, $\Gamma/\omega=0.12$, where a muon requires
+$3\times10^{-18}$; the collective tower has a level spacing $4.2\times10^{-6}$ of
+the soliton mass, so reaching the muon needs quantum number $k\simeq7\times10^3$,
+at which the rotation frequency exceeds the soliton's own deformation frequency
+by a factor of $66$ and the rigid body that produced the tower no longer exists;
+and enlarging the target to carry a generation label forfeits the theorem above,
+since $I_3$ then fails to vanish. Two sectors are reported as constraints rather
+than results. A dimensional identity fixes the ratio of director stiffness to the
+metric tension $\Gamma=c^4/16\pi G$ by gravitational compactness,
+$\chi=8\pi(\Rhat/\Ehat)\,r_s/R$, recasting the Planck-to-particle hierarchy as
+the statement that elementary particles are not black holes; it predicts nothing
+further. Forward elastic $pp$ data bound the rigidity scale,
+$R_\infty\gtrsim1.0\,$fm at $95\%$ CL, stable against both the impact-parameter
+profile and the saturation function; current data do not discriminate saturating
+from conventional growth, and the fit returns $\rho(13\,\mathrm{TeV})=0.114$
+against the measured $0.098\pm0.011$.
 \end{abstract}
 
 \maketitle
@@ -74,24 +73,24 @@ $0.098\pm0.011$.
 \section{Introduction}
 \label{sec:intro}
 
-Two research programmes have converged on the idea that spacetime protects
-information. Holographic duality realises the bulk as a quantum error-correcting
-code whose logical operators are protected against local
-erasure~\cite{almheiri2015,pastawski2015}, and Sakharov's induced-gravity
-argument~\cite{sakharov1967}, later sharpened by Jacobson~\cite{jacobson1995},
-presents the Einstein equation as an equation of state of an underlying medium.
-Both point at the same missing ingredient: a \emph{mechanical} description of the
-medium whose stiffness is what actually resists the erasure.
+Manton showed that Skyrme-type energies are naturally written through the strain
+tensor of a map and its principal invariants~\cite{manton1987}. Taken literally
+for a medium whose order parameter is a director rather than a frame, that
+observation closes: the most general isotropic hyperelastic energy of an
+$S^2$-valued director in three dimensions \emph{is} the Faddeev--Skyrme energy,
+with no truncation and no freedom left over. The third Cauchy--Green invariant
+vanishes identically---a consequence of the target being two-dimensional---so the
+Mooney--Rivlin form is not an approximation to something longer, and the quartic
+term, ordinarily introduced to defeat Derrick's theorem, is the medium's second
+elastic constant. That identity is the anchor of this paper. Everything else is
+either a consequence of it, a test of it, or a limit on what it can carry.
 
-This paper supplies that description and then tests it. The programme is
-deliberately narrow: the results reported here are confined to what can be
-derived, computed, or falsified. Section~\ref{sec:elastic} proves that the
-elastic energy of a vacuum with director microstructure \emph{is} the
-Faddeev--Skyrme energy---an identity, not a model choice---which fixes the
-relation between the metric tension and the quartic coupling.
-Section~\ref{sec:anchoring} proves an anchoring theorem relating that coupling
-ratio to gravitational compactness, converting the Planck-to-particle hierarchy
-from a tuning problem into a geometric statement.
+The programme is deliberately narrow: the results reported here are confined to
+what can be derived, computed, or falsified.
+Section~\ref{sec:elastic} proves the identity and its corollary, that the
+dimension count fails on any target of dimension three or more.
+Section~\ref{sec:anchoring} draws the one consequence that involves gravity, an
+identity relating the director stiffness to gravitational compactness.
 Section~\ref{sec:spectrum} summarises the soliton spectrum for $\Qh=1\ldots4$,
 whose computation and systematics are reported in the companion
 paper~\cite{lattice}, together with a diagnostic that turns out to carry physical
@@ -100,13 +99,29 @@ protection entirely. Section~\ref{sec:frame} applies the identical machinery to
 the one other admissible target, the frame $S^3$, as a concrete illustration of
 what makes the director case special. Section~\ref{sec:spin} states the
 spin-statistics result precisely. Section~\ref{sec:dynamics} gives annihilation
-the field equations and explicit time evolution it previously lacked.
-Section~\ref{sec:sm} replaces qualitative Standard-Model gestures with a homotopy
-classification and states plainly what the framework does not explain.
-Section~\ref{sec:scattering} turns the finite rigidity into an observational
-constraint from forward-scattering data, and
+and fusion the field equations and explicit time evolution they previously
+lacked. Section~\ref{sec:nogo} then asks what the sector cannot contain, and
+closes the routes by which generations might have been recovered from it.
+Section~\ref{sec:sm} records what the homotopy classification does and does not
+supply. Section~\ref{sec:scattering} turns the finite rigidity into an
+observational constraint from forward-scattering data, and
 Section~\ref{sec:predictions} collects, in one table, everything the framework
 commits to together with the observation that would refute each item.
+
+One interpretive hypothesis runs underneath, and we state it here so that it can
+be discounted at will. Holographic duality realises the bulk as a quantum
+error-correcting code whose logical operators resist local
+erasure~\cite{almheiri2015,pastawski2015}, and Sakharov's induced-gravity
+argument~\cite{sakharov1967}, later sharpened by Jacobson~\cite{jacobson1995},
+presents the Einstein equation as an equation of state of an underlying medium.
+Both point at a missing ingredient: a mechanical description of the medium whose
+stiffness is what actually resists the erasure. If the medium of this paper is
+that medium---if the director decorates the spatial metric---then
+Sec.~\ref{sec:anchoring} follows and the scale in Sec.~\ref{sec:scattering} is a
+vacuum property. Nothing in Secs.~\ref{sec:elastic}, \ref{sec:spectrum},
+\ref{sec:frame}, \ref{sec:spin}, \ref{sec:dynamics} or \ref{sec:nogo} depends on
+that identification, and a reader who rejects it loses two sections and keeps the
+rest.
 
 Throughout we distinguish three grades of statement: \emph{theorems} (proved, and
 independently verified symbolically), \emph{computations} (lattice results with
@@ -126,18 +141,18 @@ claim & where & status \\
 \colrule
 FS energy $=$ isotropic hyperelastic energy of a director & \ref{sec:elastic} & theorem (Thm 1) \\
 Sextic invariant forbidden for $S^2$, allowed for $S^3$ & \ref{sec:corollary} & corollary of Thm 1 \\
-Anchoring $=$ gravitational compactness & \ref{sec:anchoring} & theorem (Thm 2) \\
-Flat-space treatment is self-consistent for $\chi\ll1$ & \ref{sec:anchoring} & corollary of Thm 2 \\
+Anchoring $=$ gravitational compactness & \ref{sec:anchoring} & dimensional identity \\
+Flat-space treatment is self-consistent for $\chi\ll1$ & \ref{sec:anchoring} & corollary of the identity \\
 Topological protection requires rigidity at the cutoff & \ref{sec:lattice} & numerical experiment \\
 $\Qh=1\ldots4$ spectrum; $1.6\%$ agreement with published & \ref{sec:spectrum} & computation \\
 Binding against fission; $E\propto|\Qh|^{0.765}$ & \ref{sec:spectrum} & computation \\
 Frame-sector $B=1,2$ solitons reproduce the Skyrme literature & \ref{sec:frame} & computation \\
 Annihilation vs.\ fusion dynamics & \ref{sec:dynamics} & computation \\
 Fermi statistics for odd $\Qh$ & \ref{sec:spin} & established result, applied \\
+Generations excluded by vibration, rotation and enlargement & \ref{sec:nogo} & computation and no-go \\
 Charge quantisation from the Hopf fibre & \ref{sec:sm} & classification \\
-Confinement as a $\mathbb{Z}_3$ triality rule & \ref{sec:sm} & classification \\
+$\mathbb{Z}_3$ triality forbids isolated colour & \ref{sec:sm} & classification, not dynamics \\
 Neutral lepton $=$ fibre-trivial Hopfion & \ref{sec:sm} & conjecture \\
-Generations excluded from the director sector & \ref{sec:nogo} & no-go argument \\
 $R_\infty\gtrsim1.0\,$fm from forward $pp$ data & \ref{sec:scattering} & observational constraint \\
 \end{tabular}
 \end{ruledtabular}
@@ -150,7 +165,7 @@ field---and not as a claim that the vacuum possesses a material rest frame. Ever
 dynamical statement below follows from a Lorentz-scalar Lagrangian, and
 Sec.~\ref{sec:language} makes the point explicitly.
 
-\section{The vacuum as a hyperelastic continuum}
+\section{A hyperelastic medium with director microstructure}
 \label{sec:elastic}
 
 \subsection{Metric tension}
@@ -171,7 +186,7 @@ waves in the medium, and gravitational radiation is its acoustic sector.
 
 \subsection{Strain invariants of a director field}
 
-Let the vacuum carry, in addition to its metric, a director field
+Let the medium carry, in addition to its metric, a director field
 $\nv:\mathbb{R}^3\to S^2$, $|\nv|=1$---the local orientation of the
 microstructure. This is the standard Cosserat generalisation of an elastic
 continuum~\cite{cosserat1909}, and it is exactly the field appearing in the
@@ -228,7 +243,7 @@ first-order jet of a director field (\texttt{rt/invariants.py}).
 
 The quartic term is therefore not an ansatz introduced to defeat Derrick's
 theorem~\cite{derrick1964}. It is the second Mooney--Rivlin constant of the
-vacuum, and the truncation at quartic order is \emph{exact} rather than
+medium, and the truncation at quartic order is \emph{exact} rather than
 approximate because the sextic invariant vanishes identically for a director
 field. This fixes the relation between the metric tension and the quartic
 rigidity: they are the first and second elastic constants of one medium. The
@@ -236,7 +251,7 @@ model carries exactly one length,
 \begin{equation}
 \lc=\sqrt{c_4/c_2},
 \end{equation}
-the \textbf{Cosserat length} of the vacuum, and one energy
+the \textbf{Cosserat length} of the medium, and one energy
 $\sqrt{c_2c_4}=c_2\lc$.
 
 We should be precise about what is and is not new here. Organising Skyrme-type
@@ -341,7 +356,7 @@ with $B_k=\tfrac12\varepsilon_{kij}F_{ij}$, is thus kinematic, not dynamical.
 This is the precise content of topological protection: no choice of forces can
 change $\Qh$; only a failure of the director to be defined can.
 
-\section{Scales: the anchoring theorem}
+\section{Scales, and an identity for the anchoring coefficient}
 \label{sec:anchoring}
 
 \subsection{Dimensional structure}
@@ -386,11 +401,17 @@ which is~\eqref{eq:anchoring}. \qed
 Both sides are evaluated independently in \texttt{rt/calibration.py} and agree to
 machine precision.
 
-\subsection{The hierarchy is compactness, not tuning}
+\subsection{What the identity does and does not say}
 
-Theorem 2 addresses the objection that the Planck-scale tension $\Gamma$ and the
-eV--GeV scale of particles are separated by an unexplained factor. The separation
-\emph{is} the compactness.
+Theorem 2 bears on the objection that the Planck-scale tension $\Gamma$ and the
+eV--GeV scale of particles are separated by an unexplained factor. We should be
+exact about its standing before drawing anything from it. Equation~\eqref{eq:anchoring}
+is an algebraic rearrangement of the definitions: it contains no dynamics, and it
+predicts neither $R$ nor $M$, either of which must still be supplied from
+elsewhere. What it does is convert one dimensionless ratio into another. That is
+worth doing only if the second ratio is the more transparent, and here it is,
+because gravitational compactness is directly measurable while an anchoring
+coefficient is not.
 
 We impose one physical requirement---not a theorem, but a natural condition on a
 microstructure decorating a medium: the director sector is not stiffer than the
@@ -409,9 +430,13 @@ not merely small for particles: the condition ``this defect is a particle and no
 a black hole'' \emph{is} the condition $\chi<0.079$. A maximally anchored defect,
 $\chi=1$, has $R=0.079\,r_s$ and lies deep inside its horizon.
 
-So $\chi\ll1$ is not fine-tuning; it is the statement that elementary particles
-are gravitationally extremely non-compact, and $\chi$ measures precisely how far
-a defect is from being a black hole. Table~\ref{tab:anchoring} evaluates it.
+The hierarchy is therefore restated rather than explained. What the identity
+removes is the appearance of a tuned coincidence: $\chi\ll1$ is not a small
+number chosen to fit, it is the statement that elementary particles are
+gravitationally extremely non-compact, which is not in dispute. What it does not
+remove is the question of why $R/r_s$ takes the value it does, which is the
+hierarchy problem in its usual form and is untouched here. We claim the
+reformulation and nothing beyond it. Table~\ref{tab:anchoring} evaluates it.
 
 \begin{table}[t]
 \caption{Director-sector couplings and anchoring coefficient, using the converged
@@ -515,14 +540,15 @@ fell from $1$ to $0$ and $E$ fell below a bound that is supposed to be
 inviolable. The cure is a discretisation whose symbol vanishes only at $k=0$,
 obtained by symmetrising the \emph{energy} over one-sided differences.
 
-\emph{Error correction requires rigidity at the cutoff.} This is not merely a
-numerical nuisance. In quantum-error-correction language, the lattice with a
-Nyquist null mode is a medium with \emph{no rigidity at the cutoff scale}; and in
-exactly that medium the topological charge---the logical information---is
-destroyed at zero energy cost. The protection of a topological code is therefore
-not a property of the code alone: it requires the underlying medium to be stiff
-all the way to the cutoff. Our simulations exhibit this failure and its cure
-explicitly, and we return to it in Sec.~\ref{sec:qec}.
+\emph{Protection requires rigidity at the cutoff.} This is not merely a numerical
+nuisance. The lattice with a Nyquist null mode is a medium with \emph{no rigidity
+at the cutoff scale}, and in exactly that medium the topological charge is
+destroyed at zero energy cost. Topological protection is therefore not a property
+of the topology alone: it requires the underlying medium to be stiff all the way
+to the cutoff. Our simulations exhibit both the failure and its cure explicitly.
+We record it because it is a statement about the medium rather than about the
+classification---an argument for protection that never mentions the stiffness of
+its substrate is incomplete.
 
 \subsection{Results}
 
@@ -850,7 +876,7 @@ mass is not bounded below by that contribution and can be parametrically small.
 This accounts qualitatively for the existence and lightness of neutrinos. It is
 not a mass prediction and we do not present it as one.
 
-\subsection{What the framework does not explain}
+\section{What the director sector cannot contain}
 \label{sec:nogo}
 
 Stated plainly:
@@ -959,7 +985,7 @@ The standing of this subsection is therefore stronger than an admission of
 ignorance and weaker than a proof of impossibility. Generations do not arise
 from new topological sectors, from vibrational excitation, or from collective
 quantisation, and every route out of the director sector that we can identify
-costs more parameters than it explains. The $S^2$ hyperelastic vacuum appears to
+costs more parameters than it explains. The $S^2$ hyperelastic medium appears to
 have no room for them.
 
 \emph{Mass ratios and Yukawa couplings.} Not addressed.
@@ -989,7 +1015,7 @@ $5\times10^3\,$mb at $13\,$TeV---so ``bounding the Froissart limit'' is not a
 meaningful prediction. The meaningful statement is different and stronger:
 
 \begin{quote}
-A vacuum of finite rigidity cannot transmit unbounded strain, so the
+A medium of finite rigidity cannot transmit unbounded strain, so the
 \emph{interaction radius} of an extended soliton must itself saturate. The
 asymptotic growth of $\sigma_{\rm tot}$ is then $\ln s$, not $\ln^2 s$, and
 because analyticity ties $\rho$ to the local logarithmic growth rate,
@@ -1216,24 +1242,6 @@ and dataset choices, together with a sharp statement of which future measurement
 would settle the question. It is not evidence for the framework, and we do not
 present it as such.
 
-\section{Relation to holographic error correction}
-\label{sec:qec}
-
-The framework can now be stated in the language that motivated it, with the
-mechanical content filled in: the code subspace is the vacuum manifold $S^2$; the
-logical operators are homotopy classes, $\Qh\in\pi_3(S^2)$ and the fibre winding
-in $\pi_1(S^1)$; protection against local erasure is the homotopy invariance
-of~\eqref{eq:hopf}, which is kinematic rather than dynamical; the code distance
-is the energy barrier to unwinding, of order $c_2a$ for a UV cutoff $a$; and the
-physical realisation is the Mooney--Rivlin rigidity of the metric's director
-sector.
-
-The one genuinely new statement is the remark of Sec.~\ref{sec:lattice}: a medium
-without rigidity at its cutoff scale carries \emph{no} protection at all, however
-good its topology. Error correction is a property of the hardware, not only of
-the code---which is the thesis this programme set out to test, and is now the
-outcome of a controlled numerical experiment rather than an assertion.
-
 \section{Summary of falsifiable content}
 \label{sec:predictions}
 
@@ -1327,15 +1335,17 @@ the vacuum.
 
 \section{Conclusion}
 
-The framework presented here rests on two theorems and a
+The framework presented here rests on one theorem, one identity and a
 computation. Theorem 1 shows that the Faddeev--Skyrme energy is not a model
-choice but the exact isotropic hyperelastic energy of a vacuum director field,
-which fixes the relation between the metric tension $\Gamma$ and the quartic
-rigidity and leaves the medium with exactly one length, the Cosserat length
-$\lc$. Theorem 2 shows that the anchoring of that director sector to the metric
-equals the gravitational compactness of the defect it supports, converting the
-Planck-to-particle hierarchy from a tuning problem into the statement that
-particles are not black holes.
+choice but the exact isotropic hyperelastic energy of a director field in a
+three-dimensional medium, and that the truncation is exact rather than
+approximate because the target is two-dimensional. It leaves the medium with
+exactly one length, the Cosserat length $\lc$, and no adjustable structure. The
+anchoring identity of Sec.~\ref{sec:anchoring} then converts the ratio of
+director stiffness to metric tension into the gravitational compactness of the
+defect it supports; it restates the Planck-to-particle hierarchy as the
+observation that particles are not black holes, and we are careful to claim the
+restatement and nothing more.
 
 The lattice computation then does five things the framework previously only
 asserted. It reproduces the published $\Qh\le4$ Faddeev--Skyrme spectrum to
