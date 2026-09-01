@@ -35,3 +35,12 @@ __pycache__/
 
 # study logs
 results/*.log
+
+# PNG page renders used for visual proofing of the PDFs
+papers/*/preview/
+
+# Kept local by request: the SU(3) strange-matter draft and its campaign data.
+# The manuscript is honest but its novelty question was settled negatively
+# (see repo notes); it is not for distribution in its current form.
+papers/su3_strange_matter/
+Supplements/

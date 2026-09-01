@@ -14,6 +14,18 @@
 
 % preprint style otherwise stretches pages vertically around deferred floats
 \raggedbottom
+
+% default float tolerances strand the tall tables at the end of the document,
+% past the bibliography; revtex resets them at \begin{document}, so set them after
+\AtBeginDocument{%
+  \renewcommand{\topfraction}{0.9}%
+  \renewcommand{\bottomfraction}{0.9}%
+  \renewcommand{\textfraction}{0.05}%
+  \renewcommand{\floatpagefraction}{0.7}%
+  \setcounter{topnumber}{3}%
+  \setcounter{totalnumber}{5}%
+}
+
 \newcommand{\nv}{\bm{n}}
 \newcommand{\Av}{\bm{A}}
 \newcommand{\Bv}{\bm{B}}
@@ -35,9 +47,10 @@
 For an isotropic hyperelastic medium carrying a director microstructure we prove
 that the strain energy is \emph{exactly} the Faddeev--Skyrme energy: an
 $S^2$-valued director makes the third Cauchy--Green invariant vanish identically,
-so the Mooney--Rivlin truncation is exact rather than approximate and the quartic
-term is the medium's second elastic constant rather than an ansatz introduced
-against Derrick's theorem. The dimension count that forces this fails on any
+so there is no sextic invariant to truncate away and the Mooney--Rivlin form is
+the complete fourth-order energy rather than the leading part of a longer series;
+the quartic term is the medium's second elastic constant rather than an ansatz
+introduced against Derrick's theorem. The dimension count that forces this fails on any
 target of dimension three or more; on the frame sector $S^3$ the sextic invariant
 is admissible and we measure it at $3.7\times10^{-2}$ against $10^{-7}$ for the
 director. Lattice solutions for $\Qh=1\ldots4$, obtained on a discretisation free
@@ -76,14 +89,15 @@ against the measured $0.098\pm0.011$.
 Manton showed that Skyrme-type energies are naturally written through the strain
 tensor of a map and its principal invariants~\cite{manton1987}. Taken literally
 for a medium whose order parameter is a director rather than a frame, that
-observation closes: the most general isotropic hyperelastic energy of an
-$S^2$-valued director in three dimensions \emph{is} the Faddeev--Skyrme energy,
-with no truncation and no freedom left over. The third Cauchy--Green invariant
+observation closes: the isotropic hyperelastic energy of an $S^2$-valued director
+in three dimensions, taken at fourth order in derivatives, \emph{is} the
+Faddeev--Skyrme energy, with nothing left over. The third Cauchy--Green invariant
 vanishes identically---a consequence of the target being two-dimensional---so the
-Mooney--Rivlin form is not an approximation to something longer, and the quartic
-term, ordinarily introduced to defeat Derrick's theorem, is the medium's second
-elastic constant. That identity is the anchor of this paper. Everything else is
-either a consequence of it, a test of it, or a limit on what it can carry.
+Mooney--Rivlin form is not the leading part of a longer series in the invariants,
+and the quartic term, ordinarily introduced to defeat Derrick's theorem, is the
+medium's second elastic constant. That identity is the anchor of this paper.
+Everything else is either a consequence of it, a test of it, or a limit on what it
+can carry.
 
 The programme is deliberately narrow: the results reported here are confined to
 what can be derived, computed, or falsified.
@@ -243,9 +257,15 @@ first-order jet of a director field (\texttt{rt/invariants.py}).
 
 The quartic term is therefore not an ansatz introduced to defeat Derrick's
 theorem~\cite{derrick1964}. It is the second Mooney--Rivlin constant of the
-medium, and the truncation at quartic order is \emph{exact} rather than
-approximate because the sextic invariant vanishes identically for a director
-field. This fixes the relation between the metric tension and the quartic
+medium. We should separate two statements that it would be easy to run together.
+Isotropy alone leaves an arbitrary function $W(I_1,I_2)$, and fixing $W$ to be
+linear in the invariants is the Mooney--Rivlin choice, equivalent here to working
+at fourth order in derivatives; that choice is not forced by part (a). What part
+(a) does remove is the sextic invariant: there is no $I_3$ term to be truncated
+away, because none exists. So the Faddeev--Skyrme energy is the complete
+fourth-order isotropic energy of a director rather than the leading part of a
+longer series in the invariants.
+This fixes the relation between the metric tension and the quartic
 rigidity: they are the first and second elastic constants of one medium. The
 model carries exactly one length,
 \begin{equation}
@@ -259,8 +279,9 @@ energies through the strain tensor and its invariants goes back to
 Manton~\cite{manton1987}, and the identification of the Skyrme term with a
 quadratic strain invariant is standard in that literature. What is specific to
 the director case is part (a): $I_3$ vanishes \emph{identically} rather than
-being merely small or neglected, so no sextic term can be written down and the
-Mooney--Rivlin form is not a truncation at all but the complete answer. Theorem 1
+being merely small or neglected, so no sextic term can be written down and at
+fourth order the Mooney--Rivlin form is not a truncation at all but the complete
+answer. Theorem 1
 is thus a sharpening of a known construction, not a new identity---but it is the
 sharpening that removes the freedom, and with it the objection that the quartic
 term was chosen to make the model work.
@@ -278,7 +299,7 @@ I_k \equiv 0 \quad\text{for}\quad k>\min(n,3).
 Two cases exhaust the order parameters used in this paper:
 \begin{itemize}
 \item $n=2$, the \textbf{director} $S^2$: $I_3\equiv0$, so the Mooney--Rivlin
-energy $c_2I_1+c_4I_2$ is exact and complete.
+energy $c_2I_1+c_4I_2$ is the complete fourth-order isotropic energy.
 \item $n=3$, the \textbf{frame} $S^3\cong SU(2)$: $I_3=\det D\neq0$ in general, so
 a sextic invariant is admissible and truncating at Mooney--Rivlin order becomes a
 \emph{choice}.
@@ -1145,7 +1166,7 @@ down of the total cross-section growth at higher
 energies''~\cite{totem2019rho}. A slowing of the growth is exactly what finite
 vacuum rigidity requires. In the interest of not overstating this, the present
 crossing-even fit still returns $\rho(13\,\mathrm{TeV})=0.114$ against the
-measured $0.098\pm0.011$---a $1.4\sigma$ tension in the direction the model needs
+measured $0.098\pm0.011$---a $1.5\sigma$ tension in the direction the model needs
 but does not yet fully deliver.
 \end{enumerate}
 
@@ -1236,7 +1257,7 @@ We state the outcome plainly rather than as a claimed success. The
 rigidity-saturated hypothesis fits the world data no better and no worse than the
 conventional one; the data bound $R_\infty$ from below but do not favour a finite
 value; and the model does not reproduce the $\rho$ anomaly that motivates it,
-falling $1.4\sigma$ short in the right direction. What this section establishes
+falling $1.5\sigma$ short in the right direction. What this section establishes
 is a \emph{constraint} on the vacuum's rigidity scale, robust against the profile
 and dataset choices, together with a sharp statement of which future measurement
 would settle the question. It is not evidence for the framework, and we do not
@@ -1251,7 +1272,8 @@ observation that would refute each (Table~\ref{tab:falsify}). We also state
 plainly what it does \emph{not} predict, since a list of successes with the
 failures omitted is not an honest accounting.
 
-\begin{table*}[t]
+\begin{table}[p]
+\footnotesize
 \caption{Falsifiable content. Quantitative entries are quoted for the
 rigidity-saturated hypothesis against the conventional one where the two differ.}
 \label{tab:falsify}
@@ -1300,7 +1322,7 @@ width, $\Gamma/\omega=0.12$
    a soft cutoff-scale mode \tabularnewline
 \end{tabular}
 \end{ruledtabular}
-\end{table*}
+\end{table}
 
 \subsection{What the framework does not predict}
 
