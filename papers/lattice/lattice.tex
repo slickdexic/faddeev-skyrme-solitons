@@ -19,7 +19,7 @@
 
 \begin{document}
 
-\title{Faddeev--Skyrme soliton energies\\ from controlled lattice extrapolation}
+\title{Faddeev--Skyrme soliton energies\texorpdfstring{\\}{} from controlled lattice extrapolation}
 
 \author{Paul Vodrazka}
 \affiliation{Independent researcher}
@@ -28,7 +28,7 @@
 \begin{abstract}
 We recompute the charge-one Faddeev--Skyrme soliton energy with both lattice
 systematics under explicit control and obtain $E_1/c_0=1.231\pm0.003$, an excess
-of $2.2\%$ over the accepted $1.204$ that we have been unable to remove. The
+of $2.2\%$ over the published $1.204$ that we have been unable to remove. The
 systematics matter because they act in opposite directions---finite spacing
 lowers the energy, a finite periodic box raises it---so neither can be assessed
 alone; fitting $E=E_\infty-ah^2+cL^{-p}$ to nine runs separates them. Four
@@ -64,7 +64,7 @@ three dimensions whose solitons are classified by a linking number rather than a
 winding number. For a unit three-vector field $\nv:\mathbb{R}^3\to S^2$ with
 $\nv\to\nv_0$ at infinity, configurations fall into sectors labelled by the Hopf
 invariant $\Qh\in\pi_3(S^2)=\mathbb{Z}$, and the minimal energy in each sector is
-a well-posed numerical question that has been studied for two
+a well-posed numerical question that has been studied for nearly three
 decades~\cite{faddeev1997,gladikowski1997,battye1998,hietarinta1999,ward1999,sutcliffe2007}.
 The charge-one energy is the reference against which all other sectors are
 quoted, and it is usually taken to be $1.204$ in the normalisation fixed by
@@ -222,7 +222,7 @@ refer to the two schemes as $O(h^2)$ and $O(h^4)$; crucially their errors have
 opposite sign, so together they bracket the continuum limit.
 
 The Hopf charge is evaluated by reconstructing $\Av$ spectrally in Coulomb gauge
-from $\Bv$, with $\|\nabla\times\Av-\Bv\|/\|\Bv\|<10^{-4}$. Seeds of known charge
+from $\Bv$, with $\|\nabla\times\Av-\Bv\|/\|\Bv\|\sim10^{-3}$. Seeds of known charge
 come from composing a degree-$d$ hedgehog with the Hopf projection (giving
 $\Qh=d$, since the Chern--Simons three-form pulls back with the degree) and from
 the toroidal $A_{n,m}$ ansatz~\cite{gladikowski1997,hietarinta1999} (giving
@@ -280,8 +280,9 @@ of the intercept as the box exponent is fixed anywhere between $p=2$ and $p=6$,
 widened to cover a second fit to an independently relaxed set of runs. The
 extrapolation reaches only $0.4\%$ beyond the finest lattice computed.
 
-Against the published $1.204$ this is an excess of $2.2\%$. Three checks bear on
-whether the fault is ours.
+Against the published $1.204$ this is an excess of $2.2\%$. Four checks bear on
+whether the fault is ours; three follow, and the fourth, the boundary condition,
+is taken up in the Discussion.
 
 \emph{Matched resolution.} Our finest lattice uses $h=0.100$, exactly the spacing
 of Ref.~\cite{sutcliffe2007}, and returns $1.2257$ with no extrapolation at all.
@@ -289,8 +290,8 @@ At equal spacing the gap is $1.8\%$, of which our finite box can account for at
 most $0.7\%$.
 
 \emph{An independent discretisation.} The remaining worry is that our energy is
-only $O(h^2)$ accurate while Ref.~\cite{sutcliffe2007} uses fourth-order
-derivatives, so that the extrapolation rather than the data is at fault. Repeating
+only $O(h^2)$ accurate while Ref.~\cite{sutcliffe2007} uses the fourth-order
+spatial derivatives of Ref.~\cite{battye2002}, so that the extrapolation rather than the data is at fault. Repeating
 the whole calculation with the $O(h^4)$ scheme of Sec.~\ref{sec:lattice}, whose
 error enters with the opposite sign, gives Table~\ref{tab:o4}: the two schemes
 approach from opposite sides and agree with each other to $0.14\%$. Two
@@ -405,9 +406,10 @@ threshold.
 \caption{Mid-plane sections of the relaxed Hopfions. Top: energy density.
 Bottom: Hopf density $\Av\cdot\Bv$ on a symmetric colour scale, so the vacuum is
 neutral in every panel; the $\Qh=4$ solution was found with negative charge,
-which is equivalent to the positive one by a spatial reflection. The $\Qh=2,3$
-ground states are toroidal; the $\Qh=4$ ground state is the more compact linked
-$A_{2,2}$ configuration.}
+which is equivalent to the positive one by a spatial reflection. The $\Qh=2$
+ground state is an axial torus and the $\Qh=3$ torus is deformed out of axial
+symmetry; the $\Qh=4$ ground state is the more compact linked $A_{2,2}$
+configuration.}
 \label{fig:structure}
 \end{figure}
 
@@ -420,8 +422,8 @@ binding against fission.}
 \end{figure}
 
 \begin{table}[t]
-\caption{Relaxed Hopfion spectrum ($N=80$, $L=12$, $h=0.15$). Several
-independent seeds were relaxed in each sector and the lowest is quoted.}
+\caption{Relaxed Hopfion spectrum ($N=80$, $L=12$, $h=0.15$). For $\Qh\ge2$
+several independent seeds were relaxed and the lowest is quoted.}
 \label{tab:spectrum}
 \begin{ruledtabular}
 \begin{tabular}{ccccccc}
@@ -450,7 +452,7 @@ $\Qh$ & this work & Ref.~\cite{sutcliffe2007} & difference & type (ours / publis
 \colrule
 1 & 1.2149 & 1.204 & $+0.9\%$ & $A_{1,1}$ / $A_{1,1}$ \\
 2 & 1.9795 & 1.967 & $+0.6\%$ & $A_{2,1}$ / $A_{2,1}$ \\
-3 & 2.7926 & 2.754 & $+1.4\%$ & $A_{3,1}$ / $\widetilde{A}_{3,1}$ \\
+3 & 2.7926 & 2.754 & $+1.4\%$ & $\widetilde{A}_{3,1}$ / $\widetilde{A}_{3,1}$ \\
 4 & 3.5000 & 3.445 & $+1.6\%$ & $A_{2,2}$ / $A_{2,2}$ \\
 \end{tabular}
 \end{ruledtabular}
@@ -476,6 +478,12 @@ level from entirely different initial data. The $A_{1,m}$ family stalls higher
 ($1006.9$, $1478.9$, $1898.9$), which we report as upper stationary
 configurations without claiming they are local minima.
 
+The configuration types agree as well. At $\Qh=3$ the relaxed soliton is not
+axially symmetric: the two largest principal second moments of its energy
+density differ by $15\%$, against at most $1.5\%$ in the other sectors. This
+broken symmetry is what distinguishes the $\widetilde{A}_{3,1}$ ground state of
+Ref.~\cite{sutcliffe2007} from the axial $A_{3,1}$, which is unstable to coiling.
+
 The excess over Ward's bound is $21.5$, $17.7$, $22.5$ and $23.7\%$ here against
 $20.4$, $17.0$, $20.8$ and $21.8\%$ in Ref.~\cite{sutcliffe2007}: not only the
 overall $\sim20\%$ level but the characteristic dip at $\Qh=2$ is reproduced. The
@@ -494,7 +502,7 @@ Dirichlet walls; and the whole procedure, by a control with an exact answer.
 
 The remaining methodological difference is the boundary condition itself.
 Reference~\cite{sutcliffe2007} truncates the field to the vacuum at the boundary
-of a box of side $15.1$; we use a periodic box. For a massless field with
+of a box of side $15$; we use a periodic box. For a massless field with
 power-law tails the natural expectation is that truncation removes gradient
 energy a periodic box retains, with the sign right to explain part of a gap. We
 have measured it rather than argued about it.
@@ -544,10 +552,12 @@ $L$ & $h$ & periodic & fixed & difference (\%) \\
 \end{ruledtabular}
 \end{table}
 
-Against all of this, Ref.~\cite{sutcliffe2007} itself argues the opposite way,
-noting that its grid ``appear[s] to underestimate the energy by an amount of the
-order of $1\%$'' and quoting $E\simeq1.21$ from higher-resolution studies. Our
-result would put the underestimate nearer $2\%$.
+Reference~\cite{sutcliffe2007} itself anticipates part of the gap. It describes
+its own value as appearing ``to underestimate the energy by an amount of the
+order of $1\%$'', noting that earlier computations by several
+groups~\cite{gladikowski1997,faddeev1997,battye1998,hietarinta1999}, taken
+together, suggest $E\simeq1.21$. The direction is the one we find; our result
+puts the underestimate nearer $2\%$.
 
 We therefore report $E_1/c_0=1.231\pm0.003$ as our result and the difference from
 $1.204$ as open, with the boundary condition no longer among the candidate
@@ -583,8 +593,8 @@ $5\times10^{-7}$.
 rotates by more than $\delta$ radians per iteration; a heavy-ball term with
 energy arrest accelerates convergence; and the momentum is projected back onto
 the tangent space each step---omitting this projection allows a spurious radial
-component to accumulate and drives the field out of its sector. Every hundred
-steps the exact Derrick dilation $\mu=\sqrt{E_4/E_2}$ is applied and accepted
+component to accumulate and drives the field out of its sector. Every $50$--$120$
+steps, depending on the driver, the exact Derrick dilation $\mu=\sqrt{E_4/E_2}$ is applied and accepted
 only if it lowers the energy \emph{and} does not push the configuration into the
 boundary collar; the second condition matters, because unbounded dilation samples
 only the core and returns a uniform field, whose energy is zero and which the
@@ -598,7 +608,9 @@ stationary and falls with both $h$ and $L$.
 
 \emph{Topological charge.} $\Bv$ from fourth-order central differences, $\Av$
 from $\hat{\Av}=i\bm{k}\times\hat{\Bv}/k^2$ in Coulomb gauge; the residual
-$\|\nabla\times\Av-\Bv\|/\|\Bv\|$ is below $10^{-4}$ at $N=96$. The baryon number
+$\|\nabla\times\Av-\Bv\|/\|\Bv\|$ is the longitudinal part of the discretised
+$\Bv$, which no vector potential can represent, and is $1\times10^{-3}$ at $N=96$,
+falling approximately as $h^4$. The baryon number
 of the frame sector is the determinant of
 $[\varphi,\partial_1\varphi,\partial_2\varphi,\partial_3\varphi]$ evaluated at
 every site, and is integral to $5\times10^{-4}$ at the finest lattice.
@@ -606,8 +618,8 @@ every site, and is integral to $5\times10^{-4}$ at the finest lattice.
 \section{Reproducibility}
 
 The supplement~\cite{repo} comprises a library and one driver per result, with
-\texttt{verify\_claims.py} re-deriving every quoted quantity from the stored
-fields rather than from intermediate summaries, and
+\texttt{verify\_claims.py} re-deriving the principal quoted quantities from the
+stored fields rather than from intermediate summaries, and
 \texttt{verify\_manuscript.py} checking that the numbers printed in this paper
 are the numbers those drivers produced.
 The lattice kernels are written against a swappable array backend and run unchanged

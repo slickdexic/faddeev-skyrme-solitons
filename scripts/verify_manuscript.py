@@ -46,10 +46,23 @@ def table(src, label):
     return m.group(1) if m else ""
 
 
+def printed(src, *items):
+    """Values the checks below hard-code must actually appear in the manuscript."""
+    global ok
+    flat = " ".join(src.split())
+    missing = [s for s in items if s not in flat]
+    ok &= not missing
+    print(f"  [{'OK ' if not missing else 'FAIL'}] {len(items) - len(missing)}/{len(items)} "
+          f"hard-coded quotations found in the text" + (f"; missing {missing}" if missing else ""))
+
+
 print("=" * 78)
 print("Paper A (papers/lattice/lattice.tex)")
 print("=" * 78)
 a = tex("papers/lattice/lattice.tex")
+printed(a, "446.65", "$a=-68.8$", "$a=-214.4$", r"$+2.3\times10^3$", r"$+8.3\times10^3$",
+        "three quarters", "1.2311", "1.23145", "1.2280", "1.2257", r"$0.18\%$",
+        r"$1.81\%$", "$0.765$", r"$18.5\%$", r"$23.4\%$", r"$28.0\%$", "540.50")
 
 check("Ward constant c0", 446.65, C0, 0.01)
 check("Faddeev-Bogomolny constant 12 pi^2", 118.435, FB, 0.01)
@@ -176,6 +189,20 @@ if stat:
         bind = 100 * (1 - E[i] / ((i + 1) * E[0]))
         quoted = [18.5, 23.4, 28.0][i - 1]
         check(f"binding vs fission Q={q} (%)", quoted, bind, 0.05)
+
+# only the lowest seed per sector reaches the JSON; the others are quoted from the log
+log = ROOT / "results_static.log"
+if log.exists():
+    runs = dict(re.findall(r"seed '([^']+)'.*?-> E=([0-9.]+)", log.read_text(), re.S))
+    print("  alternative seeds (results_static.log):")
+    for seed, quoted in (("A_2,1", "884.20"), ("A_3,1", "1248.34"),
+                         ("hedgehog d=4", "1621.6"), ("A_4,1", "1621.8"),
+                         ("A_1,2", "1006.9"), ("A_1,3", "1478.9"), ("A_1,4", "1898.9")):
+        if quoted not in a:
+            ok = False
+            print(f"  [FAIL]     {seed}: {quoted} not found in the manuscript")
+            continue
+        check(f"    seed {seed}", float(quoted), float(runs[seed]), 0.05)
 
 print()
 print("=" * 78)

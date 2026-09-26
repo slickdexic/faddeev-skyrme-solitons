@@ -4,6 +4,8 @@ results/*.npz
 
 # Working logs
 *.log
+# except the one log that is the source of the alternative-seed energies in Paper A
+!results_static.log
 
 # LaTeX build products
 papers/*/*.aux
@@ -15,6 +17,9 @@ papers/*/*Notes.bib
 
 # Generated arXiv upload bundles
 arxiv/
+
+# Private submission correspondence (cover letters, referee lists, emails)
+papers/*/submission/
 
 # Superseded single-paper draft, kept locally until the split is signed off
 paper/

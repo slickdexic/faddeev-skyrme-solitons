@@ -32,6 +32,28 @@ def check(label, got, want, tol, unit=""):
     print(f"  [{'OK ' if good else 'FAIL'}] {label:<52} {got:12.5g} vs {want:g}{unit}")
 
 
+def ratio_errors(o, key):
+    if isinstance(o, dict):
+        if isinstance(o.get("E"), float) and key in o:
+            yield abs(o[key] - o["E"] / C0)
+        for v in o.values():
+            yield from ratio_errors(v, key)
+    elif isinstance(o, list):
+        for v in o:
+            yield from ratio_errors(v, key)
+
+
+def moment_split(n, h):
+    """Relative gap between the two largest principal second moments of the energy."""
+    e2, e4 = fs.energy_density(n, h)
+    w = np.asarray(e2 + e4)
+    w = w / w.sum()
+    R = [np.asarray(X) - (w * np.asarray(X)).sum()
+         for X in fs.make_grid(n.shape[1], 12.0)[0]]
+    ev = np.linalg.eigvalsh([[(w * a * b).sum() for b in R] for a in R])
+    return (ev[2] - ev[1]) / ev[2]
+
+
 print("=" * 78)
 print("1. Theorem 1 identities (symbolic)")
 print("=" * 78)
@@ -51,8 +73,15 @@ for _p in sorted(RES.glob("*.json")):
     _d = json.load(open(_p))
     if isinstance(_d, dict) and "bound_constant" in _d:
         check(f"{_p.name}: stored c0 matches the code", _d["bound_constant"], C0, 1e-6)
+    # a stale E/c0 beside a correct E survives a constant check (volume_study did)
+    errs = list(ratio_errors(_d, "E_over_c0"))
+    if "bound_constant" in _d:
+        errs += list(ratio_errors(_d, "E_over_bound"))
+    if errs:
+        check(f"{_p.name}: stored E/c0 equals E/c0", max(errs), 0.0, 1e-9)
 
 E, Q = {}, {}
+split = {}
 for q in (1, 2, 3, 4):
     n = np.load(RES / f"field_Q{q}.npy")
     h = 12.0 / n.shape[1]
@@ -62,6 +91,9 @@ for q in (1, 2, 3, 4):
     print(f"  Q={q}: E={E[q]:9.2f}  E/c0={E[q]/C0:.4f}  Q_meas={Q[q]:+.4f}  R={Rr:.3f}")
     check(f"    |Q_H| integer to 0.01", abs(Q[q]), q, 0.015)
     check(f"    E/c0 vs Sutcliffe", E[q] / C0, LIT[q], 0.06)
+    split[q] = moment_split(n, h)
+check("Q=3 principal-moment split (non-axial)", split[3], 0.15, 0.01)
+check("largest split, Q=1,2,4 (axial)", max(split[q] for q in (1, 2, 4)), 0.015, 0.001)
 
 print()
 print("=" * 78)

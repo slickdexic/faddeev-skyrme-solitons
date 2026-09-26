@@ -88,7 +88,7 @@ def spectrum_figure(data):
     ax[0].plot(Q, BOUND * Q**0.75, "k--", label=r"Ward bound $c_0Q^{3/4}$")
     ax[0].plot(Q, E1 * Q, ":", color="C0", label=r"$Q\,E_1$ (fission threshold)")
     ax[0].set_xlabel(r"$Q_H$")
-    ax[0].set_ylabel(r"$E$  (units $c_2\ell_c$)")
+    ax[0].set_ylabel(r"$E$  (model units, $c_2=c_4=1$)")
     ax[0].legend(frameon=False, fontsize=9)
     ax[0].grid(alpha=0.25)
 
@@ -99,7 +99,7 @@ def spectrum_figure(data):
     ax[1].set_title("below 1 = bound against fission", fontsize=10)
     ax[1].grid(alpha=0.25)
 
-    fig.suptitle("Topological energy spectrum of the hyperelastic vacuum", fontsize=12)
+    fig.suptitle("Hopfion energy spectrum", fontsize=12)
     fig.tight_layout()
     fig.savefig(FIG / "energy_spectrum.png", dpi=150)
     plt.close(fig)
