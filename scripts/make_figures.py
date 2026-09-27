@@ -117,41 +117,6 @@ def convergence_table(data):
     return "\n".join(out)
 
 
-def frame_figure():
-    """Column density of the B = 1 frame-sector soliton against the two
-    assumed opacity shapes of the scattering section, all at unit rms radius."""
-    path = RES / "skyrme.json"
-    if not path.exists():
-        return False
-    import matplotlib.pyplot as plt
-    from rt import eikonal as ek
-
-    d = json.loads(path.read_text())["profile"]
-    u, T = np.asarray(d["u"]), np.asarray(d["T"])
-    a, w = np.asarray(d["gauss_a"]), np.asarray(d["gauss_w"])
-
-    x = np.linspace(0.0, 4.2, 400)
-    sky = sum(ai * np.exp(-(x**2) / wi**2) for ai, wi in zip(a, w))
-    dip = sum(ai * np.exp(-(x**2) / wi**2)
-              for ai, wi in zip(ek._DIPOLE_A, ek._DIPOLE_W))
-
-    fig, ax = plt.subplots(figsize=(4.4, 3.4))
-    m = u <= 4.2
-    ax.semilogy(u[m], T[m], "o", ms=3.5, color="C3", label="lattice $B=1$")
-    ax.semilogy(x, sky, "-", color="C3", lw=1.2, label="Gaussian-sum fit")
-    ax.semilogy(x, np.exp(-(x**2)), "--", color="C0", lw=1.2, label="Gaussian")
-    ax.semilogy(x, dip, "-.", color="C2", lw=1.2, label="dipole form factor")
-    ax.set_xlabel(r"$b/\langle b^2\rangle^{1/2}$")
-    ax.set_ylabel("opacity shape (normalised)")
-    ax.set_ylim(1e-5, 2.0)
-    ax.set_xlim(0, 4.2)
-    ax.legend(fontsize=7, frameon=False)
-    fig.tight_layout()
-    fig.savefig(FIG / "frame_profile.png", dpi=150)
-    plt.close(fig)
-    return True
-
-
 def main():
     path = RES / "static_solitons.json"
     if not path.exists():
@@ -160,8 +125,6 @@ def main():
     data = json.loads(path.read_text())
     structure_figure(data)
     spectrum_figure(data)
-    if frame_figure():
-        print("frame-sector profile figure written")
 
     print("== soliton spectrum ==")
     print("| Q | seed | E | E/(c0 Q^3/4) | R_rms | virial | Q measured | E_Q/(Q E_1) |")

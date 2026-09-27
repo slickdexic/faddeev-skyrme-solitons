@@ -1,8 +1,7 @@
 """Frame-sector spectrum B = 1..4 from symmetric rational-map seeds.
 
-The B = 1 soliton is the nucleon of this sector; B >= 2 are the multi-baryon
-bound states. Their energies test whether the framework produces a binding-energy
-systematics, which is the closest it gets to computing a mass spectrum.
+B >= 2 are the multi-baryon bound states; their energies and binding energies
+per baryon are compared with the rational-map values of Battye and Sutcliffe.
 
 Usage:  python scripts/run_skyrme_spectrum.py [--gpu]
 """

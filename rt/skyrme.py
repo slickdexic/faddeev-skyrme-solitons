@@ -5,10 +5,10 @@ tensor D_ij = d_i phi . d_j phi and its invariants are defined exactly as in
 `fs_core`, so the energy and its gradient are computed by the same routines --
 they never reference the target dimension. Only the topological charge differs.
 
-Structural point (Theorem 1', see the manuscript): for phi : R^3 -> S^n the
-Jacobian is (n+1) x 3, so rank D <= min(n, 3) and
+Structural point: for phi : R^3 -> S^n the Jacobian is (n+1) x 3, so
+rank D <= min(n, 3) and
 
-    n = 2 (director) : I_3 = det D == 0 identically  -> Mooney-Rivlin is exact,
+    n = 2 (director) : I_3 = det D == 0 identically  -> no sextic invariant,
     n = 3 (frame)    : I_3 != 0                     -> a sextic term is allowed.
 
 The Faddeev-Bogomolny bound follows from AM-GM on the principal stretches,

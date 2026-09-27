@@ -1,4 +1,4 @@
-"""Cross-check the numbers quoted in the manuscripts against the stored results.
+"""Cross-check the numbers quoted in the manuscript against the stored results.
 
 verify_claims.py re-derives physics from the fields; this checks that what the
 LaTeX actually says matches what the drivers actually produced. Written after a
@@ -57,7 +57,7 @@ def printed(src, *items):
 
 
 print("=" * 78)
-print("Paper A (papers/lattice/lattice.tex)")
+print("Manuscript (papers/lattice/lattice.tex)")
 print("=" * 78)
 a = tex("papers/lattice/lattice.tex")
 printed(a, "446.65", "$a=-68.8$", "$a=-214.4$", r"$+2.3\times10^3$", r"$+8.3\times10^3$",

@@ -4,7 +4,7 @@ results/*.npz
 
 # Working logs
 *.log
-# except the one log that is the source of the alternative-seed energies in Paper A
+# except the one log that is the source of the alternative-seed energies
 !results_static.log
 
 # LaTeX build products
@@ -18,22 +18,6 @@ papers/*/*Notes.bib
 # Generated arXiv upload bundles
 arxiv/
 
-# Private submission correspondence (cover letters, referee lists, emails)
-papers/*/submission/
-
-# Superseded single-paper draft, kept locally until the split is signed off
-paper/
-
-# Historical Markdown drafts, reviews and scratch data. These predate the
-# manuscripts and contain claims that were investigated and withdrawn; they are
-# working history, not part of the supplement.
-Resonant*.md
-V*-Review.*
-V*_Review.md
-Review-*.md
-Gemini*.md
-arxiv_*
-
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
@@ -43,9 +27,3 @@ results/*.log
 
 # PNG page renders used for visual proofing of the PDFs
 papers/*/preview/
-
-# Kept local by request: the SU(3) strange-matter draft and its campaign data.
-# The manuscript is honest but its novelty question was settled negatively
-# (see repo notes); it is not for distribution in its current form.
-papers/su3_strange_matter/
-Supplements/

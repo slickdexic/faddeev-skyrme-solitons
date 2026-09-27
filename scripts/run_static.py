@@ -3,8 +3,8 @@
 Outputs
 -------
 results/static_solitons.json : energies, virial ratios, radii, charges
-results/field_Q{n}.npy       : relaxed fields (used by the dynamics and
-                               form-factor scripts)
+results/field_Q{n}.npy       : relaxed fields (read by verify_claims.py and
+                               make_figures.py)
 """
 
 import json

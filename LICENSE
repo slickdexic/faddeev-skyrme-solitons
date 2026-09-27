@@ -27,8 +27,8 @@ SCOPE
 The licence above applies to the software in this repository: rt/, scripts/,
 the build scripts, and the configuration files.
 
-It does not apply to the manuscripts in papers/ (LaTeX sources, bibliographies
-and PDFs) or to the figures in figures/. Those are Copyright (c) 2026 Paul
+It does not apply to the manuscript in papers/ (LaTeX source, bibliography
+and PDF) or to the figures in figures/. Those are Copyright (c) 2026 Paul
 Vodrazka, all rights reserved, and are included so that the computational
 claims can be read alongside the code that produces them. Their reuse will be
-governed by the terms of publication once the manuscripts appear.
+governed by the terms of publication once the manuscript appears.

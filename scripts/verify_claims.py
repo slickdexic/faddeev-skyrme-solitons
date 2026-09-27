@@ -13,9 +13,6 @@ import numpy as np
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
 from rt import fs_core as fs                      # noqa: E402
-from rt.calibration import SolitonShape, couplings, anchoring_from_compactness  # noqa: E402
-from rt.constants import GAMMA, G, c, m_e, m_planck, lambda_bar_e  # noqa: E402
-from rt import invariants                        # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 RES = ROOT / "results"
@@ -55,16 +52,7 @@ def moment_split(n, h):
 
 
 print("=" * 78)
-print("1. Theorem 1 identities (symbolic)")
-print("=" * 78)
-r = invariants.run()
-for k in ("I3_is_zero", "sumF2_equals_2I2", "cross2_equals_sumF2", "unit_norm", "tangency"):
-    print(f"  [{'OK ' if r[k] else 'FAIL'}] {k}")
-    ok &= bool(r[k])
-
-print()
-print("=" * 78)
-print("2. Soliton spectrum recomputed from the stored fields")
+print("1. Soliton spectrum recomputed from the stored fields")
 print("=" * 78)
 
 # a results file written under an older normalisation would otherwise sit there
@@ -97,7 +85,7 @@ check("largest split, Q=1,2,4 (axial)", max(split[q] for q in (1, 2, 4)), 0.015,
 
 print()
 print("=" * 78)
-print("3. Derived quantities quoted in the text")
+print("2. Derived quantities quoted in the text")
 print("=" * 78)
 Qa = np.array([1, 2, 3, 4], float)
 Ea = np.array([E[q] for q in (1, 2, 3, 4)])
@@ -107,38 +95,9 @@ for q, want in ((2, 18.5), (3, 23.4), (4, 28.0)):
     check(f"binding vs fission, Q={q} (%)", 100 * (1 - E[q] / (q * E[1])), want, 0.15)
 check("Ward constant c0", C0, 446.65, 0.01)
 
-shape = SolitonShape(E_hat=E[1], R_hat=1.705)
-coef = 8 * np.pi * shape.R_hat / shape.E_hat
-check("horizon criterion 8*pi*Rhat/Ehat", coef, 0.079, 0.001)
-
-chi_direct = couplings(m_e * c**2, lambda_bar_e, shape)["chi"]
-chi_thm, r_s = anchoring_from_compactness(m_e, lambda_bar_e, shape)
-check("Theorem 2: chi (couplings) vs chi (theorem)", chi_direct / chi_thm, 1.0, 1e-12)
-check("chi(electron, Compton) / alpha_G", chi_direct / (m_e / m_planck) ** 2,
-      16 * np.pi * shape.R_hat / shape.E_hat, 1e-9)
-check("Gamma (N)", GAMMA, 2.4077e42, 1e39)
-
-check("no-go: (m_mu/m_e)^(4/3)", 206.7683**(4 / 3), 1200, 40)
-check("no-go: (m_tau/m_e)^(4/3)", 3477.23**(4 / 3), 52800, 900)
-
 print()
 print("=" * 78)
-print("4. Dynamics")
-print("=" * 78)
-d = json.load(open(RES / "dynamics.json"))
-a, f = d["runs"]["annihilation"]["summary"], d["runs"]["fusion"]["summary"]
-check("annihilation: core energy retained (%)", 100 * a["core_fraction_final"], 0.2, 0.05)
-check("fusion: core energy retained (%)", 100 * f["core_fraction_final"], 77.2, 0.1)
-check("fusion: charge drift (%)", 100 * abs(f["Q_final"] - f["Q_initial"]) / 2, 0.3, 0.1)
-n2 = np.load(RES / "field_Q2.npy")
-h2 = 12.0 / n2.shape[1]
-e2, e4 = fs.energy(n2, h2)
-check("fusion remnant vs static Q=2 (% difference)",
-      100 * abs(888.8 - (e2 + e4)) / (e2 + e4), 0.5, 0.1)
-
-print()
-print("=" * 78)
-print("5. Frame sector")
+print("3. Frame sector")
 print("=" * 78)
 from rt import skyrme as sk                       # noqa: E402
 

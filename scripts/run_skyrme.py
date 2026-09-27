@@ -1,6 +1,6 @@
 """Frame-sector (Skyrme) solitons: relax B = 1 and B = 2, check against the
-literature, and extract the baryon-density impact-parameter profile used by the
-eikonal of Sec. VIII.
+exact hedgehog energy and the literature, and tabulate the baryon-density
+impact-parameter profile.
 
 Usage:  python scripts/run_skyrme.py [--quick]
 
@@ -76,8 +76,7 @@ def upsample(phi, N):
 
 def fit_gaussian_sum(b, C, K=16, wmin=0.1, wmax=8.0):
     """Non-negative Gaussian-sum representation, fitted to the unbinned column
-    density. Each term is analytic in R^2, which is what the crossing-even
-    continuation of Sec. VIII requires."""
+    density. Each term is analytic in R^2."""
     w = np.geomspace(wmin, wmax, K)
     M = np.exp(-(b[:, None] ** 2) / w[None, :] ** 2)
     a, _ = nnls(M, C)

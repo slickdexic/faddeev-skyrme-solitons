@@ -1,8 +1,7 @@
 """Regenerate results/skyrme_field_B1.npy only.
 
-The B = 1 frame-sector field is consumed by verify_claims.py, by the profile
-figure and by the eikonal's computed opacity shape, but is not itself recorded in
-results/skyrme.json. This reruns exactly the B = 1, L = 12 ladder of
+The B = 1 frame-sector field is consumed by verify_claims.py but is not itself
+recorded in results/skyrme.json. This reruns exactly the B = 1, L = 12 ladder of
 run_skyrme.py so the stored field matches the recorded sector, without repeating
 the box study or the B = 2 sector.
 """

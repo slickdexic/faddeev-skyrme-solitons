@@ -1,11 +1,10 @@
-"""Assemble a self-contained arXiv upload for one of the manuscripts.
+"""Assemble a self-contained arXiv upload for the manuscript.
 
-The repository keeps figures in a shared top-level directory, which arXiv cannot
+The repository keeps figures in a top-level directory, which arXiv cannot
 resolve. This copies the source into a flat bundle, rewrites the figure paths,
 and includes the .bbl, since arXiv does not run BibTeX.
 
 Usage:  python scripts/make_arxiv_bundle.py lattice
-        python scripts/make_arxiv_bundle.py framework
 """
 
 import pathlib
@@ -18,7 +17,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 def main():
-    if len(sys.argv) < 2 or sys.argv[1] not in ("lattice", "framework"):
+    if len(sys.argv) < 2 or sys.argv[1] != "lattice":
         sys.exit(__doc__)
     name = sys.argv[1]
     src = ROOT / "papers" / name
